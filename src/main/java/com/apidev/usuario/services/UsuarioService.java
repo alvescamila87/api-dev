@@ -23,7 +23,7 @@ public class UsuarioService {
         List<UsuarioEntity> usuarioEntityList = repository.findAll();
 
         for(UsuarioEntity usuarioEntity : usuarioEntityList) {
-            //
+            listaDeUsuariosDTO.add(UsuarioListaDTO.of(usuarioEntity));
         }
 
         return listaDeUsuariosDTO;

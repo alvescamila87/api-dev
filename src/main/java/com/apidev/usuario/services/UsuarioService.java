@@ -28,4 +28,12 @@ public class UsuarioService {
 
         return listaDeUsuariosDTO;
     }
+
+    public void deleteUsuario(Long id) {
+        if(!repository.existsById(id)) {
+            throw new IllegalArgumentException("Usuário não encontrado por esse ID: " + id);
+        }
+
+        repository.deleteById(id);
+    }
 }

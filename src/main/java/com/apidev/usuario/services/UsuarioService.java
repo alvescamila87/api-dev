@@ -1,9 +1,12 @@
 package com.apidev.usuario.services;
 
+import ch.qos.logback.core.util.StringUtil;
+import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.dtos.UsuarioListaDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
 import com.apidev.usuario.repositoris.UsuarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,18 @@ public class UsuarioService {
         }
 
         return listaDeUsuariosDTO;
+    }
+
+    public UsuarioDTO addUsuario(UsuarioDTO usuarioDTO) {
+        if(usuarioDTO == null) {
+            throw new IllegalArgumentException("Campo obrigatórios não preenchidos.");
+        }
+
+        UsuarioEntity.from(usuarioDTO);
+
+        final var usuarioEntity = repository.save(UsuarioEntity.from(usuarioDTO));
+
+        return UsuarioDTO.of(usuarioEntity);
     }
 
     public void deleteUsuario(Long id) {

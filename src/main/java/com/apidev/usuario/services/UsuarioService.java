@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -42,6 +43,17 @@ public class UsuarioService {
         final var usuarioEntity = repository.save(UsuarioEntity.from(usuarioDTO));
 
         return UsuarioDTO.of(usuarioEntity);
+    }
+
+    public void updateUsuario(Long id, UsuarioDTO usuarioDTO) {
+        Optional<UsuarioEntity> usuarioEntityOptional = repository.findById(id);
+
+        if(usuarioEntityOptional.isEmpty()) {
+            throw new IllegalArgumentException("Usuário não encontrado por esse ID: " + id);
+        }
+
+        UsuarioEntity usuarioEntity = usuarioEntityOptional.get();
+        repository.save(UsuarioEntity.from(usuarioDTO));
     }
 
     public void deleteUsuario(Long id) {

@@ -1,5 +1,6 @@
 package com.apidev.usuario.controllers;
 
+import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.dtos.UsuarioListaDTO;
 import com.apidev.usuario.services.UsuarioService;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,11 @@ public class UsuarioController {
     @GetMapping
     public List<UsuarioListaDTO> listarUsuarios() {
         return usuarioService.listarUsuarios();
+    }
+
+    @PostMapping
+    public UsuarioDTO addUsuario(UsuarioDTO usuarioDTO) {
+        return usuarioService.addUsuario(usuarioDTO);
     }
 
     @DeleteMapping("/{id}")

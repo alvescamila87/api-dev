@@ -1,12 +1,10 @@
 package com.apidev.usuario.services;
 
-import ch.qos.logback.core.util.StringUtil;
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.dtos.UsuarioListaDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
-import com.apidev.usuario.repositoris.UsuarioRepository;
+import com.apidev.usuario.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

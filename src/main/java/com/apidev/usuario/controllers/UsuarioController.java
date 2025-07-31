@@ -3,6 +3,8 @@ package com.apidev.usuario.controllers;
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.dtos.UsuarioListaDTO;
 import com.apidev.usuario.services.UsuarioService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +22,14 @@ public class UsuarioController {
     @GetMapping
     public List<UsuarioListaDTO> listarUsuarios() {
         return usuarioService.listarUsuarios();
+    }
+
+
+    @GetMapping
+    public Page<UsuarioListaDTO> listarUsuarios(Pageable pageable) {
+        // lógica
+
+        return null;
     }
 
     @PostMapping

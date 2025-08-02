@@ -5,7 +5,9 @@ import com.apidev.usuario.dtos.UsuarioListaDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
 import com.apidev.usuario.repositories.UsuarioRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,9 +23,11 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public Page<UsuarioListaDTO> listarUsuarios(Pageable pageable) {
+    public Page<UsuarioListaDTO> listarUsuarios(String nome, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("nome").ascending());
+        Page<UsuarioEntity> listaUsuariosEntity = repository.findByNome(nome, pageable);
 
-        return null;
+        return listaUsuariosEntity.map(UsuarioListaDTO::of);
     }
 
     public List<UsuarioListaDTO> listarUsuarios() {

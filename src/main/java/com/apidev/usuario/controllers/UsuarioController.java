@@ -26,10 +26,12 @@ public class UsuarioController {
 
 
     @GetMapping
-    public Page<UsuarioListaDTO> listarUsuarios(Pageable pageable) {
-        // lógica
-
-        return null;
+    public Page<UsuarioListaDTO> listarUsuarios(
+                    @RequestParam(defaultValue = "") String nome,
+                    @RequestParam(defaultValue = "0") int page,
+                    @RequestParam(defaultValue = "10") int size
+    ) {
+        return usuarioService.listarUsuarios(nome, page, size);
     }
 
     @PostMapping

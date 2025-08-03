@@ -1,10 +1,10 @@
 package com.apidev.usuario.controllers;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
+import com.apidev.usuario.dtos.UsuarioFilterDTO;
 import com.apidev.usuario.dtos.UsuarioListaDTO;
 import com.apidev.usuario.services.UsuarioService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,11 +27,11 @@ public class UsuarioController {
 
     @GetMapping
     public Page<UsuarioListaDTO> listarUsuarios(
-                    @RequestParam(defaultValue = "") String nome,
+                    @ModelAttribute UsuarioFilterDTO filter,
                     @RequestParam(defaultValue = "0") int page,
                     @RequestParam(defaultValue = "10") int size
     ) {
-        return usuarioService.listarUsuarios(nome, page, size);
+        return usuarioService.listarUsuarios(filter, page, size);
     }
 
     @PostMapping

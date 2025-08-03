@@ -1,6 +1,7 @@
 package com.apidev.usuario.services;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
+import com.apidev.usuario.dtos.UsuarioFilterDTO;
 import com.apidev.usuario.dtos.UsuarioListaDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
 import com.apidev.usuario.repositories.UsuarioRepository;
@@ -23,11 +24,9 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public Page<UsuarioListaDTO> listarUsuarios(String nome, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("nome").ascending());
-        Page<UsuarioEntity> listaUsuariosEntity = repository.findByNome(nome, pageable);
-
-        return listaUsuariosEntity.map(UsuarioListaDTO::of);
+    public Page<UsuarioListaDTO> listarUsuarios(UsuarioFilterDTO filter, int page, int size) {
+        Pageable pageable = PageRequest.of(paginator.getPage(), paginator.getSize(), Sort.by("nome").ascending());
+        return repository.findByNome(filter, pageable);
     }
 
     public List<UsuarioListaDTO> listarUsuarios() {

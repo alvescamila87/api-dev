@@ -1,8 +1,7 @@
 package com.apidev.usuario.entities;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -14,12 +13,25 @@ import lombok.*;
 @NoArgsConstructor
 public class UsuarioEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "tipo_usuario", nullable = false)
     private String tipoUsuario;
+
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "senha", nullable = false)
     private String senha;
-    private boolean ativo;
+
+    @Builder.Default
+    @Column(name = "ativo", nullable = false)
+    private boolean ativo = false;
 
     public static UsuarioEntity from(UsuarioDTO usuarioDTO) {
         return UsuarioEntity

@@ -18,6 +18,14 @@ public class UsuarioDTO {
     private boolean ativo;
 
     public static UsuarioDTO of(UsuarioEntity usuarioEntity) {
-        return UsuarioDTO.of(usuarioEntity);
+        return UsuarioDTO
+                .builder()
+                .id(usuarioEntity.getId())
+                .nome(usuarioEntity.getNome())
+                .tipoUsuario(usuarioEntity.getTipoUsuario())
+                .email(usuarioEntity.getEmail())
+                .senha(usuarioEntity.getSenha())
+                .ativo(usuarioEntity.isAtivo())
+                .build();
     }
 }

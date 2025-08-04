@@ -1,14 +1,10 @@
 package com.apidev.usuario.services;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
-import com.apidev.usuario.dtos.UsuarioFilterDTO;
-import com.apidev.usuario.dtos.UsuarioListaDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
 import com.apidev.usuario.repositories.UsuarioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,18 +20,19 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public Page<UsuarioListaDTO> listarUsuarios(UsuarioFilterDTO filter, int page, int size) {
-        Pageable pageable = PageRequest.of(paginator.getPage(), paginator.getSize(), Sort.by("nome").ascending());
-        return repository.findByNome(filter, pageable);
+    public Page<UsuarioDTO> findAll(int page, int size) {
+        Page<UsuarioEntity> listaUsuarios = repository.findAll(PageRequest.of(page, size));
+
+        return listaUsuarios.map(UsuarioDTO::of);
     }
 
-    public List<UsuarioListaDTO> listarUsuarios() {
-        List<UsuarioListaDTO> listaDeUsuariosDTO = new ArrayList<>();
+    public List<UsuarioDTO> listarUsuarios() {
+        List<UsuarioDTO> listaDeUsuariosDTO = new ArrayList<>();
 
         List<UsuarioEntity> usuarioEntityList = repository.findAll();
 
         for(UsuarioEntity usuarioEntity : usuarioEntityList) {
-            listaDeUsuariosDTO.add(UsuarioListaDTO.of(usuarioEntity));
+            listaDeUsuariosDTO.add(UsuarioDTO.of(usuarioEntity));
         }
 
         return listaDeUsuariosDTO;

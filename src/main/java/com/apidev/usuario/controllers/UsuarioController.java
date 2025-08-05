@@ -2,31 +2,27 @@ package com.apidev.usuario.controllers;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.services.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
+@RequiredArgsConstructor
 public class UsuarioController {
 
     private final UsuarioService service;
 
-    public UsuarioController(UsuarioService service) {
-        this.service = service;
-    }
-
     @GetMapping
-    public ResponseEntity<Page<UsuarioDTO>> paginacaoUsuario(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(service.findAll(page, size));
+    public ResponseEntity<Page<UsuarioDTO>> paginacaoUsuario(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "nome", required = false) String nome
+    ) {
+        return ResponseEntity.ok(service.findAll(page, size, nome));
     }
-
-//    @GetMapping
-//    public List<UsuarioDTO> listarUsuarios() {
-//        return service.listarUsuarios();
-//    }
 
     @PostMapping
     public UsuarioDTO addUsuario(@RequestBody UsuarioDTO usuarioDTO) {

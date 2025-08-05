@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
-    Page<UsuarioEntity> findAll(Pageable pageable);
+    //Page<UsuarioEntity> findAll(Pageable pageable);
+    Page<UsuarioEntity> findAllByNomeContainingIgnoreCase(String nome, Pageable pageable);
 }

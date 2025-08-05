@@ -3,8 +3,10 @@ package com.apidev.usuario.services;
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
 import com.apidev.usuario.repositories.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,16 +14,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioService {
 
     private final UsuarioRepository repository;
 
-    public UsuarioService(UsuarioRepository repository) {
-        this.repository = repository;
-    }
+    public Page<UsuarioDTO> findAll(int page, int size, String nome) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("nome").ascending());
 
-    public Page<UsuarioDTO> findAll(int page, int size) {
-        Page<UsuarioEntity> listaUsuarios = repository.findAll(PageRequest.of(page, size));
+        Page<UsuarioEntity> listaUsuarios = repository.findAll(pageRequest);
+
+        if(nome != null && !nome.isEmpty()) {
+            listaUsuarios = repository.findAllByNomeContainingIgnoreCase(nome, pageRequest);
+        } else {
+            listaUsuarios = repository.findAll(pageRequest);
+        }
 
         return listaUsuarios.map(UsuarioDTO::of);
     }

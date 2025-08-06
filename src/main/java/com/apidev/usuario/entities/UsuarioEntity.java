@@ -1,6 +1,7 @@
 package com.apidev.usuario.entities;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
+import com.apidev.usuario.enums.EnumTipoUsuario;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +21,9 @@ public class UsuarioEntity {
     @Column(name = "nome", nullable = false)
     private String nome;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_usuario", nullable = false)
-    private String tipoUsuario;
+    private EnumTipoUsuario tipoUsuario;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;

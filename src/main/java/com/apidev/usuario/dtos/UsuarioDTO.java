@@ -1,6 +1,7 @@
 package com.apidev.usuario.dtos;
 
 import com.apidev.usuario.entities.UsuarioEntity;
+import com.apidev.usuario.enums.EnumTipoUsuario;
 import lombok.*;
 
 @Getter
@@ -12,7 +13,7 @@ public class UsuarioDTO {
 
     private Long id;
     private String nome;
-    private String tipoUsuario;
+    private EnumTipoUsuario tipoUsuario;
     private String email;
     private String senha;
     private boolean ativo;

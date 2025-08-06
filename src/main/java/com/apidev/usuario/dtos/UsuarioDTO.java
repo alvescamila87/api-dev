@@ -16,7 +16,8 @@ public class UsuarioDTO {
     private EnumTipoUsuario tipoUsuario;
     private String email;
     private String senha;
-    private boolean ativo;
+    @Builder.Default
+    private boolean ativo = true;
 
     public static UsuarioDTO of(UsuarioEntity usuarioEntity) {
         return UsuarioDTO

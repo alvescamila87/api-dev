@@ -1,9 +1,11 @@
 package com.apidev.usuario.services;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
+import com.apidev.usuario.dtos.UsuarioFilterDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
 import com.apidev.usuario.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,12 +24,34 @@ public class UsuarioService {
     public Page<UsuarioDTO> findAll(int page, int size, String nome) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("nome").ascending());
 
-        Page<UsuarioEntity> listaUsuarios = repository.findAll(pageRequest);
+        Page<UsuarioEntity> listaUsuarios;
 
         if(nome != null && !nome.isEmpty()) {
             listaUsuarios = repository.findAllByNomeContainingIgnoreCase(nome, pageRequest);
         } else {
             listaUsuarios = repository.findAll(pageRequest);
+        }
+
+        return listaUsuarios.map(UsuarioDTO::of);
+    }
+
+    public Page<UsuarioDTO> findAllComFiltro(int page, int size, UsuarioFilterDTO filter) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("nome").ascending());
+
+        Page<UsuarioEntity> listaUsuarios;
+
+        if(filter == null) {
+            return repository.findAll(pageRequest).map(UsuarioDTO::of);
+        }
+
+        if(StringUtils.isNotBlank(filter.getNome())) {
+            listaUsuarios = repository.findAllByNomeContainingIgnoreCase(filter.getNome(), pageRequest);
+        } else if (StringUtils.isNotBlank(filter.getEmail())) {
+            listaUsuarios = repository.findAllByEmailContainingIgnoreCase(filter.getEmail(), pageRequest);
+        } else if (filter.getTipoUsuario() != null) {
+            listaUsuarios = repository.findByTipoUsuario(filter.getTipoUsuario(), pageRequest);
+        } else {
+            return repository.findAll(pageRequest).map(UsuarioDTO::of);
         }
 
         return listaUsuarios.map(UsuarioDTO::of);

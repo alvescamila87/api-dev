@@ -3,6 +3,7 @@ package com.apidev.usuario.services;
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.dtos.UsuarioFilterDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
+import com.apidev.usuario.enums.EnumTipoUsuario;
 import com.apidev.usuario.exceptions.ValidationException;
 import com.apidev.usuario.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -128,8 +129,8 @@ public class UsuarioService {
             throw new ValidationException("Favor informar a SENHA.");
         }
 
-        if(usuarioDTO.getSenha().length() < 6) {
-            throw new ValidationException("A senha deve possuir pelo menos 6 caracteres.");
+        if(usuarioDTO.getSenha().length() < 6 || usuarioDTO.getSenha().length() > 25) {
+            throw new ValidationException("A senha deve de 6 a 25 caracteres.");
         }
 
         if(StringUtils.isBlank(usuarioDTO.getEmail())) {

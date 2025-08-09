@@ -3,6 +3,7 @@ package com.apidev.usuario.controllers;
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.dtos.UsuarioFilterDTO;
 import com.apidev.usuario.services.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public UsuarioDTO addUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+    public UsuarioDTO addUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         return service.addUsuario(usuarioDTO);
     }
 

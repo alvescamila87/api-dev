@@ -2,6 +2,7 @@ package com.apidev.usuario.dtos;
 
 import com.apidev.usuario.entities.UsuarioEntity;
 import com.apidev.usuario.enums.EnumTipoUsuario;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
@@ -12,10 +13,24 @@ import lombok.*;
 public class UsuarioDTO {
 
     private Long id;
+
+    @NotBlank(message = "Nome é um campo obrigatório")
+    @Size(max = 255, message = "O nome pode ter ATÉ 255 caracteres")
     private String nome;
+
+    @NotNull(message = "Tipo de usuário é um campo obrigatório")
     private EnumTipoUsuario tipoUsuario;
+
+    @NotBlank(message = "E-mail é um campo obrigatório")
+    @Email(message = "O email deve ser válido")
     private String email;
+
+    @NotBlank(message = "Senha é um campo obrigatório")
+    @Size(min = 6, max = 25, message = "A senha deve ter pelo menos 6 caracteres")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,25}$",
+            message = "A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial")
     private String senha;
+
     @Builder.Default
     private boolean ativo = true;
 

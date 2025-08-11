@@ -84,22 +84,30 @@ public class UsuarioService {
     }
 
     public void updateUsuario(Long id, UsuarioDTO usuarioDTO) {
-        Optional<UsuarioEntity> usuarioEntityOptional = repository.findById(id);
+        findById(id);
 
-        if(usuarioEntityOptional.isEmpty()) {
-            throw new IllegalArgumentException("Usuário não encontrado por esse ID: " + id);
-        }
+        validarInput(usuarioDTO);
 
-        UsuarioEntity usuarioEntity = usuarioEntityOptional.get();
+        emailJaCadastrado(usuarioDTO.getEmail());
+
         repository.save(UsuarioEntity.from(usuarioDTO));
     }
 
     public void deleteUsuario(Long id) {
-        if(!repository.existsById(id)) {
+        findById(id);
+
+        repository.deleteById(id);
+    }
+
+    protected Optional<UsuarioEntity> findById(Long id) {
+
+        Optional<UsuarioEntity> usuarioEntity = repository.findById(id);
+
+        if(usuarioEntity.isEmpty()) {
             throw new IllegalArgumentException("Usuário não encontrado por esse ID: " + id);
         }
 
-        repository.deleteById(id);
+        return usuarioEntity;
     }
 
     protected boolean emailJaCadastrado(String email) {

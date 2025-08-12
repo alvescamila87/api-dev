@@ -6,6 +6,7 @@ import com.apidev.usuario.services.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,17 +37,30 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public UsuarioDTO addUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
-        return service.addUsuario(usuarioDTO);
+    public ResponseEntity<Void> addUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+       boolean resultado = service.addUsuario(usuarioDTO);
+
+       if(!resultado) {
+           return ResponseEntity.badRequest().build();
+       }
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
-    public void updateUsuario(@PathVariable("id") Long Id, @RequestBody UsuarioDTO usuarioDTO) {
-        service.updateUsuario(Id, usuarioDTO);
+    public ResponseEntity<Void> updateUsuario(@PathVariable("id") Long Id, @Valid @RequestBody UsuarioDTO usuarioDTO) {
+        boolean resultado = service.updateUsuario(Id, usuarioDTO);
+
+        if(!resultado) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUsuario(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         service.deleteUsuario(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

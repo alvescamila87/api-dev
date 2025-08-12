@@ -3,7 +3,6 @@ package com.apidev.usuario.services;
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.dtos.UsuarioFilterDTO;
 import com.apidev.usuario.entities.UsuarioEntity;
-import com.apidev.usuario.enums.EnumTipoUsuario;
 import com.apidev.usuario.exceptions.ValidationException;
 import com.apidev.usuario.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +70,7 @@ public class UsuarioService {
         return listaDeUsuariosDTO;
     }
 
-    public UsuarioDTO addUsuario(UsuarioDTO usuarioDTO) {
+    public boolean addUsuario(UsuarioDTO usuarioDTO) {
 
         validarInput(usuarioDTO);
 
@@ -80,10 +78,12 @@ public class UsuarioService {
 
         final var usuarioEntity = repository.save(UsuarioEntity.from(usuarioDTO));
 
-        return UsuarioDTO.of(usuarioEntity);
+        UsuarioDTO.of(usuarioEntity);
+
+        return true;
     }
 
-    public void updateUsuario(Long id, UsuarioDTO usuarioDTO) {
+    public boolean updateUsuario(Long id, UsuarioDTO usuarioDTO) {
         findById(id);
 
         validarInput(usuarioDTO);
@@ -91,6 +91,8 @@ public class UsuarioService {
         emailJaCadastrado(usuarioDTO.getEmail());
 
         repository.save(UsuarioEntity.from(usuarioDTO));
+
+        return true;
     }
 
     public void deleteUsuario(Long id) {
@@ -110,14 +112,16 @@ public class UsuarioService {
         return usuarioEntity;
     }
 
-    protected boolean emailJaCadastrado(String email) {
+    protected void emailJaCadastrado(String email) {
         if(email == null) {
-            return false;
+            return;
         }
 
         Optional<UsuarioEntity> usuarioEntity = repository.findByEmail(email);
 
-        return usuarioEntity.isPresent();
+        if(usuarioEntity.isPresent()) {
+            throw new ValidationException("E-mail já cadastrado.");
+        };
     }
 
     protected void validarInput(UsuarioDTO usuarioDTO) {

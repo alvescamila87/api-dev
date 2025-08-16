@@ -27,7 +27,7 @@ public class UsuarioService {
 
         Page<UsuarioEntity> listaUsuarios;
 
-        if(nome != null && !nome.isEmpty()) {
+        if (nome != null && !nome.isEmpty()) {
             listaUsuarios = repository.findAllByNomeContainingIgnoreCase(nome, pageRequest);
         } else {
             listaUsuarios = repository.findAll(pageRequest);
@@ -41,11 +41,11 @@ public class UsuarioService {
 
         Page<UsuarioEntity> listaUsuarios;
 
-        if(filter == null) {
+        if (filter == null) {
             return repository.findAll(pageRequest).map(UsuarioDTO::of);
         }
 
-        if(StringUtils.isNotBlank(filter.getNome())) {
+        if (StringUtils.isNotBlank(filter.getNome())) {
             listaUsuarios = repository.findAllByNomeContainingIgnoreCase(filter.getNome(), pageRequest);
         } else if (StringUtils.isNotBlank(filter.getEmail())) {
             listaUsuarios = repository.findAllByEmailContainingIgnoreCase(filter.getEmail(), pageRequest);
@@ -63,7 +63,7 @@ public class UsuarioService {
 
         List<UsuarioEntity> usuarioEntityList = repository.findAll();
 
-        for(UsuarioEntity usuarioEntity : usuarioEntityList) {
+        for (UsuarioEntity usuarioEntity : usuarioEntityList) {
             listaDeUsuariosDTO.add(UsuarioDTO.of(usuarioEntity));
         }
 
@@ -84,13 +84,23 @@ public class UsuarioService {
     }
 
     public boolean updateUsuario(Long id, UsuarioDTO usuarioDTO) {
-        findById(id);
+        UsuarioEntity usuarioExistente = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado por esse ID: " + id));
 
         validarInput(usuarioDTO);
 
-        emailJaCadastrado(usuarioDTO.getEmail());
+        Optional<UsuarioEntity> usuarioComNovoEmail = repository.findByEmail(usuarioDTO.getEmail());
 
-        repository.save(UsuarioEntity.from(usuarioDTO));
+        if (usuarioComNovoEmail.isPresent() && !usuarioComNovoEmail.get().getId().equals(id)) {
+            throw new ValidationException("E-mail já cadastrado para outro usuário.");
+        }
+
+        usuarioExistente.setNome(usuarioDTO.getNome());
+        usuarioExistente.setTipoUsuario(usuarioDTO.getTipoUsuario());
+        usuarioExistente.setSenha(usuarioDTO.getSenha());
+        usuarioExistente.setAtivo(usuarioDTO.isAtivo());
+
+        repository.save(usuarioExistente);
 
         return true;
     }
@@ -101,51 +111,50 @@ public class UsuarioService {
         repository.deleteById(id);
     }
 
-    protected Optional<UsuarioEntity> findById(Long id) {
+    protected void findById(Long id) {
 
         Optional<UsuarioEntity> usuarioEntity = repository.findById(id);
 
-        if(usuarioEntity.isEmpty()) {
+        if (usuarioEntity.isEmpty()) {
             throw new IllegalArgumentException("Usuário não encontrado por esse ID: " + id);
         }
-
-        return usuarioEntity;
     }
 
     protected void emailJaCadastrado(String email) {
-        if(email == null) {
+        if (email == null) {
             return;
         }
 
         Optional<UsuarioEntity> usuarioEntity = repository.findByEmail(email);
 
-        if(usuarioEntity.isPresent()) {
+        if (usuarioEntity.isPresent()) {
             throw new ValidationException("E-mail já cadastrado.");
-        };
+        }
+        ;
     }
 
     protected void validarInput(UsuarioDTO usuarioDTO) {
-        if(usuarioDTO == null) {
+        if (usuarioDTO == null) {
             throw new ValidationException("Campo obrigatórios não preenchidos.");
         }
 
-        if(StringUtils.isBlank(usuarioDTO.getNome())) {
+        if (StringUtils.isBlank(usuarioDTO.getNome())) {
             throw new ValidationException("Favor informar o NOME completo.");
         }
 
-        if(usuarioDTO.getTipoUsuario() == null) {
+        if (usuarioDTO.getTipoUsuario() == null) {
             throw new ValidationException("Favor informar o TIPO DE USUÁRIO.");
         }
 
-        if(StringUtils.isBlank(usuarioDTO.getSenha())) {
+        if (StringUtils.isBlank(usuarioDTO.getSenha())) {
             throw new ValidationException("Favor informar a SENHA.");
         }
 
-        if(usuarioDTO.getSenha().length() < 6 || usuarioDTO.getSenha().length() > 25) {
+        if (usuarioDTO.getSenha().length() < 6 || usuarioDTO.getSenha().length() > 25) {
             throw new ValidationException("A senha deve de 6 a 25 caracteres.");
         }
 
-        if(StringUtils.isBlank(usuarioDTO.getEmail())) {
+        if (StringUtils.isBlank(usuarioDTO.getEmail())) {
             throw new ValidationException("Favor informar o E-MAIL.");
         }
     }

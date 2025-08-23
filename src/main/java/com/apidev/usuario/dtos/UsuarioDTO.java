@@ -1,7 +1,7 @@
 package com.apidev.usuario.dtos;
 
 import com.apidev.usuario.entities.UsuarioEntity;
-import com.apidev.usuario.enums.EnumTipoUsuario;
+import com.apidev.usuario.enums.EnumTipoPermissao;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -18,8 +18,8 @@ public class UsuarioDTO {
     @Size(max = 255, message = "O nome pode ter ATÉ {max} caracteres")
     private String nome;
 
-    @NotNull(message = "Tipo de usuário é um campo obrigatório")
-    private EnumTipoUsuario tipoUsuario;
+    @NotNull(message = "Tipo de permissão é um campo obrigatório")
+    private EnumTipoPermissao tipoPermissao;
 
     @NotBlank(message = "E-mail é um campo obrigatório")
     @Email(message = "Informe um e-mail válido")
@@ -39,7 +39,7 @@ public class UsuarioDTO {
                 .builder()
                 .id(usuarioEntity.getId())
                 .nome(usuarioEntity.getNome())
-                .tipoUsuario(usuarioEntity.getTipoUsuario())
+                .tipoPermissao(usuarioEntity.getTipoPermissao())
                 .email(usuarioEntity.getEmail())
                 .senha(usuarioEntity.getSenha())
                 .ativo(usuarioEntity.isAtivo())

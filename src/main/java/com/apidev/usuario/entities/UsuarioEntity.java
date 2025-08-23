@@ -1,7 +1,7 @@
 package com.apidev.usuario.entities;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
-import com.apidev.usuario.enums.EnumTipoUsuario;
+import com.apidev.usuario.enums.EnumTipoPermissao;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,8 +22,8 @@ public class UsuarioEntity {
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_usuario", nullable = false)
-    private EnumTipoUsuario tipoUsuario;
+    @Column(name = "tipo_permissao", nullable = false)
+    private EnumTipoPermissao tipoPermissao;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -40,7 +40,7 @@ public class UsuarioEntity {
                 .builder()
                 .id(usuarioDTO.getId())
                 .nome(usuarioDTO.getNome())
-                .tipoUsuario(usuarioDTO.getTipoUsuario())
+                .tipoPermissao(usuarioDTO.getTipoPermissao())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
                 .ativo(usuarioDTO.isAtivo())

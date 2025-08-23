@@ -1,7 +1,7 @@
 package com.apidev.usuario.repositories;
 
 import com.apidev.usuario.entities.UsuarioEntity;
-import com.apidev.usuario.enums.EnumTipoUsuario;
+import com.apidev.usuario.enums.EnumTipoPermissao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +17,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
     Page<UsuarioEntity> findAllByEmailContainingIgnoreCase(String email, Pageable pageable);
 
-    Page<UsuarioEntity> findByTipoUsuario(EnumTipoUsuario tipoUsuario, Pageable pageable);
+    Page<UsuarioEntity> findByTipoUsuario(EnumTipoPermissao tipoUsuario, Pageable pageable);
 
     Optional<UsuarioEntity> findByEmail(String email);
 }

@@ -49,8 +49,8 @@ public class UsuarioService {
             listaUsuarios = repository.findAllByNomeContainingIgnoreCase(filter.getNome(), pageRequest);
         } else if (StringUtils.isNotBlank(filter.getEmail())) {
             listaUsuarios = repository.findAllByEmailContainingIgnoreCase(filter.getEmail(), pageRequest);
-        } else if (filter.getTipoUsuario() != null) {
-            listaUsuarios = repository.findByTipoUsuario(filter.getTipoUsuario(), pageRequest);
+        } else if (filter.getTipoPermissao() != null) {
+            listaUsuarios = repository.findByTipoUsuario(filter.getTipoPermissao(), pageRequest);
         } else {
             return repository.findAll(pageRequest).map(UsuarioDTO::of);
         }
@@ -96,7 +96,7 @@ public class UsuarioService {
         }
 
         usuarioExistente.setNome(usuarioDTO.getNome());
-        usuarioExistente.setTipoUsuario(usuarioDTO.getTipoUsuario());
+        usuarioExistente.setTipoPermissao(usuarioDTO.getTipoPermissao());
         usuarioExistente.setSenha(usuarioDTO.getSenha());
         usuarioExistente.setAtivo(usuarioDTO.isAtivo());
 
@@ -142,8 +142,8 @@ public class UsuarioService {
             throw new ValidationException("Favor informar o NOME completo.");
         }
 
-        if (usuarioDTO.getTipoUsuario() == null) {
-            throw new ValidationException("Favor informar o TIPO DE USUÁRIO.");
+        if (usuarioDTO.getTipoPermissao() == null) {
+            throw new ValidationException("Favor informar o TIPO DE PERMISSÃO.");
         }
 
         if (StringUtils.isBlank(usuarioDTO.getSenha())) {

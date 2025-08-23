@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum EnumTipoUsuario {
+public enum EnumTipoPermissao {
     ADMIN("Administrador"),
     GERENTE("Gerente | Editor"),
     OPERADOR("Operador | Usuário comum"),

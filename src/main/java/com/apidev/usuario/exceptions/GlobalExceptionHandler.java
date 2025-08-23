@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 
         String specificMessage = exception.getMostSpecificCause().getMessage();
         if(specificMessage.contains("Enum class")) {
-            return new ResponseEntity<>("Tipo inválido para o campo 'tipoUsuario'. "
+            return new ResponseEntity<>("Tipo inválido para o campo 'tipoPermissao'. "
                     + "Valores válidos são: [VISITANTE, OPERADOR, GERENTE, ADMIN].", HttpStatus.BAD_REQUEST);
         }
 

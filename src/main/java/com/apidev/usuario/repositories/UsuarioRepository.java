@@ -17,7 +17,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
     Page<UsuarioEntity> findAllByEmailContainingIgnoreCase(String email, Pageable pageable);
 
-    Page<UsuarioEntity> findByTipoUsuario(EnumTipoPermissao tipoUsuario, Pageable pageable);
+    Page<UsuarioEntity> findByTipoPermissao(EnumTipoPermissao tipoPermissao, Pageable pageable);
 
     Optional<UsuarioEntity> findByEmail(String email);
 }

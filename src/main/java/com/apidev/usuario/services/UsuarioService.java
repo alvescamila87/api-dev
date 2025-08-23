@@ -50,7 +50,7 @@ public class UsuarioService {
         } else if (StringUtils.isNotBlank(filter.getEmail())) {
             listaUsuarios = repository.findAllByEmailContainingIgnoreCase(filter.getEmail(), pageRequest);
         } else if (filter.getTipoPermissao() != null) {
-            listaUsuarios = repository.findByTipoUsuario(filter.getTipoPermissao(), pageRequest);
+            listaUsuarios = repository.findByTipoPermissao(filter.getTipoPermissao(), pageRequest);
         } else {
             return repository.findAll(pageRequest).map(UsuarioDTO::of);
         }

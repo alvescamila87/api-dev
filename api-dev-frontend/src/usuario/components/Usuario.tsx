@@ -1,22 +1,31 @@
 import { useForm } from "react-hook-form";
 
 export function Usuario() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({
+    mode: "all",
+  });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const handleSubmitData = (data: any) => {
+    console.log("submit", data);
   }; // função que executa SE o forme estiver com dados válidos
 
   return (
-    <div className="app-container">
-      <div className="form-group">
-        <label>Nome completo</label>
-        <input type="text" placeholder="Nome completo" {...register("name")} />
-      </div>
+    <form onSubmit={handleSubmit(handleSubmitData)}>
+      <h2>Cadastro de usuário</h2>
+
+      <label>Nome completo</label>
+      <input type="text" placeholder="Nome completo" {...register("name")} />
+
+      <label>E-mail</label>
+      <input
+        type="email"
+        placeholder="email@server.com"
+        {...register("email")}
+      />
 
       <div className="form-group">
-        <button onClick={() => handleSubmit(onSubmit)()}>Salvar</button>
+        <button type="submit">Salvar</button>
       </div>
-    </div>
+    </form>
   );
 }

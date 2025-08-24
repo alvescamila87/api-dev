@@ -4,6 +4,7 @@ import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.enums.EnumTipoPermissao;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -34,6 +35,10 @@ public class UsuarioEntity {
     @Builder.Default
     @Column(name = "ativo", nullable = false)
     private boolean ativo = false;
+
+    public UsuarioEntity(UsuarioDTO dto) {
+        BeanUtils.copyProperties(dto, this);
+    }
 
     public static UsuarioEntity from(UsuarioDTO usuarioDTO) {
         return UsuarioEntity

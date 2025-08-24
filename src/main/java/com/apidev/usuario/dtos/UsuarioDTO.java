@@ -2,8 +2,10 @@ package com.apidev.usuario.dtos;
 
 import com.apidev.usuario.entities.UsuarioEntity;
 import com.apidev.usuario.enums.EnumTipoPermissao;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
@@ -33,6 +35,10 @@ public class UsuarioDTO {
 
     @Builder.Default
     private boolean ativo = true;
+
+    public UsuarioDTO (UsuarioEntity entity) {
+        BeanUtils.copyProperties(entity, this);
+    }
 
     public static UsuarioDTO of(UsuarioEntity usuarioEntity) {
         return UsuarioDTO

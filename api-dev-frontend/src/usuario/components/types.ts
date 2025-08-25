@@ -17,3 +17,17 @@ export type UsuarioForm = {
 };
 
 export type TipoPermissao = "ADMIN" | "GERENTE" | "OPERADOR" | "VISITANTE";
+
+// export const enum EnumTipoPermissao {
+//   ADMIN = "ADMIN",
+//   GERENTE = "GERENTE",
+//   OPERADOR = "OPERADOR",
+//   VISITANTE = "VISITANTE",
+// }
+
+export const EnumTipoPermissao = [
+  "ADMIN",
+  "GERENTE",
+  "OPERADOR",
+  "VISITANTE",
+] as const;

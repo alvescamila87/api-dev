@@ -1,7 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { ENUM_TIPO_PERMISSAO, type TipoPermissao } from "./types";
+import { ENUM_TIPO_PERMISSAO, type TipoPermissao } from "../service/types";
+import { useUsuario } from "./useUsuario";
 
 const schema = Yup.object().shape({
   nome: Yup.string().required("Campo obrigatório"),
@@ -32,6 +33,8 @@ export function Usuario() {
   });
 
   const { errors, isSubmitting } = formState;
+
+  const { data, isLoading } = useUsuario();
 
   console.log("Errors: ", errors);
   console.log("isSubmitting: ", isSubmitting);
@@ -94,6 +97,18 @@ export function Usuario() {
           {isSubmitting ? "Enviando" : "Salvar"}
         </button>
       </div>
+
+      {isLoading ? (
+        <p>Loading... </p>
+      ) : (
+        <>
+          {data?.map((user) => (
+            <div key={user.id}>
+              <p>{user.nome}</p>
+            </div>
+          ))}
+        </>
+      )}
     </form>
   );
 }

@@ -18,6 +18,8 @@ export type UsuarioForm = {
 
 export type TipoPermissao = "ADMIN" | "GERENTE" | "OPERADOR" | "VISITANTE";
 
+export type UsuarioResponseList = UsuarioResponse[];
+
 // export const enum EnumTipoPermissao {
 //   ADMIN = "ADMIN",
 //   GERENTE = "GERENTE",

@@ -1,4 +1,4 @@
-import { Usuario } from "./usuario/components/Usuario";
+import { Usuario } from "./usuario/components/view/Usuario";
 
 export function App() {
   return <Usuario />;

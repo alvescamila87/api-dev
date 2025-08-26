@@ -1,13 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { EnumTipoPermissao, type TipoPermissao } from "./types";
+import { ENUM_TIPO_PERMISSAO, type TipoPermissao } from "./types";
 
 const schema = Yup.object().shape({
   nome: Yup.string().required("Campo obrigatório"),
   //permissao: Yup.mixed<TipoPermissao>().required("Campo obrigatório"),
   permissao: Yup.string()
-    .oneOf(EnumTipoPermissao)
+    .oneOf(ENUM_TIPO_PERMISSAO)
     .required("Campo obrigatório"),
   email: Yup.string().required("Campo obrigatório"),
   senha: Yup.string()
@@ -61,7 +61,7 @@ export function Usuario() {
       <label>Permissão</label>
       <select {...register("permissao")}>
         <option value={""}>Selecione uma permissão</option>
-        {Object.values(EnumTipoPermissao).map((permissao, index) => (
+        {Object.values(ENUM_TIPO_PERMISSAO).map((permissao, index) => (
           <option key={index} value={permissao}>
             {permissao}
           </option>

@@ -25,7 +25,7 @@ export type TipoPermissao = "ADMIN" | "GERENTE" | "OPERADOR" | "VISITANTE";
 //   VISITANTE = "VISITANTE",
 // }
 
-export const EnumTipoPermissao = [
+export const ENUM_TIPO_PERMISSAO = [
   "ADMIN",
   "GERENTE",
   "OPERADOR",

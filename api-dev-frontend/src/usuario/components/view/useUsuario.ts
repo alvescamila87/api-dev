@@ -12,8 +12,25 @@ const INITIAL_STATE_VALUES = {
 export const useUsuario = () => {
   const { findAll } = usuarioService();
 
+  //const [pageNumber, setPageNumber] = useState(0);
+  //const [pageSize, setPageSize] = useState(10);
+
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<UsuarioResponseList>([]);
+
+  // const fetchAll = useCallback(async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await findAll(pageNumber, pageSize);
+  //     console.log("DATA", response);
+  //     setLoading(false);
+  //     setData(response);
+  //   } catch (error) {
+  //     console.error(error, "Ocorreu um erro ao buscar dados de usuário.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, [findAll, pageNumber, pageSize]);
 
   const fetchAll = useCallback(async () => {
     try {
@@ -36,5 +53,8 @@ export const useUsuario = () => {
   return {
     data,
     loading,
+
+    //setPageNumber,
+    //setPageSize,
   };
 };

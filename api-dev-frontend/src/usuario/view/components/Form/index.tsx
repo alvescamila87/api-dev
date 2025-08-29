@@ -5,7 +5,7 @@ import {
   ENUM_TIPO_PERMISSAO,
   type TipoPermissao,
 } from "../../../service/types";
-import { useUsuario } from "./useUsuario";
+import { useUsuario } from "./useUsuarioForm";
 
 const schema = Yup.object().shape({
   nome: Yup.string().required("Campo obrigatório"),
@@ -20,7 +20,7 @@ const schema = Yup.object().shape({
   ativo: Yup.bool().nullable(),
 });
 
-export function Usuario() {
+export function UsuarioForm() {
   const { register, handleSubmit, formState, reset, setFocus } = useForm({
     mode: "all",
     resolver: yupResolver(schema),

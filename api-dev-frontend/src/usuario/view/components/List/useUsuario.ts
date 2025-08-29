@@ -15,8 +15,8 @@ export const useUsuario = () => {
   //const [pageNumber, setPageNumber] = useState(0);
   //const [pageSize, setPageSize] = useState(10);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<UsuarioResponseList>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<UsuarioResponseList | null>(null);
 
   // const fetchAll = useCallback(async () => {
   //   try {
@@ -34,7 +34,6 @@ export const useUsuario = () => {
 
   const fetchList = useCallback(async () => {
     try {
-      setIsLoading(true);
       const { findAll } = usuarioService();
       const response = await findAll();
       console.log("DATA", response);

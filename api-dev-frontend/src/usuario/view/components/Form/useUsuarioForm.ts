@@ -9,7 +9,7 @@ const INITIAL_STATE_VALUES = {
   pageNumber: 10,
 };
 
-export const useUsuario = () => {
+export const useUsuarioForm = () => {
   const { findAll } = usuarioService();
 
   //const [pageNumber, setPageNumber] = useState(0);

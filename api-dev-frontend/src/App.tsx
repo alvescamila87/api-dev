@@ -1,4 +1,3 @@
-import { Usuario } from "./usuario/view/components/Form/Usuario";
 import ListaUsuario from "./usuario/view/components/List";
 
 export function App() {
@@ -6,7 +5,7 @@ export function App() {
     <>
       <ListaUsuario />
 
-      {/* <Usuario /> */}
+      {/* <UsuarioForm /> */}
     </>
   );
 }

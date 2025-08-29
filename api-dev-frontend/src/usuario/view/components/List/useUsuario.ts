@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import type { UsuarioResponseList } from "../service/types";
-import { usuarioService } from "./../service/usuarioService";
+import type { UsuarioResponseList } from "../../../service/types";
+import { usuarioService } from "../../../service/usuarioService";
 
 const INITIAL_STATE_VALUES = {
   data: [],
@@ -15,7 +15,7 @@ export const useUsuario = () => {
   //const [pageNumber, setPageNumber] = useState(0);
   //const [pageSize, setPageSize] = useState(10);
 
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<UsuarioResponseList>([]);
 
   // const fetchAll = useCallback(async () => {
@@ -32,27 +32,27 @@ export const useUsuario = () => {
   //   }
   // }, [findAll, pageNumber, pageSize]);
 
-  const fetchAll = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await findAll();
-      console.log("DATA", response);
-      setLoading(false);
-      setData(response);
-    } catch (error) {
-      console.error(error, "Ocorreu um erro ao buscar dados de usuário.");
-    } finally {
-      setLoading(false);
-    }
-  }, [findAll]);
-
   useEffect(() => {
-    fetchAll();
-  }, [fetchAll]);
+    const fetchList = async () => {
+      try {
+        setIsLoading(true);
+        const { findAll } = usuarioService();
+        const response = await findAll();
+        console.log("DATA", response);
+        setData(response?.content);
+      } catch (error) {
+        console.error("Ocorreu um erro ao buscar dados de usuário.", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchList();
+  }, []);
 
   return {
     data,
-    loading,
+    isLoading,
 
     //setPageNumber,
     //setPageSize,

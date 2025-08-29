@@ -1,5 +1,12 @@
-import { Usuario } from "./usuario/components/view/Usuario";
+import { Usuario } from "./usuario/view/components/Form/Usuario";
+import ListaUsuario from "./usuario/view/components/List";
 
 export function App() {
-  return <Usuario />;
+  return (
+    <>
+      <ListaUsuario />
+
+      {/* <Usuario /> */}
+    </>
+  );
 }

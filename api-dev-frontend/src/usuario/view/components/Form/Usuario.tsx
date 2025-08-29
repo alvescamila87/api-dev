@@ -1,7 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { ENUM_TIPO_PERMISSAO, type TipoPermissao } from "../service/types";
+import {
+  ENUM_TIPO_PERMISSAO,
+  type TipoPermissao,
+} from "../../../service/types";
 import { useUsuario } from "./useUsuario";
 
 const schema = Yup.object().shape({

@@ -32,23 +32,23 @@ export const useUsuario = () => {
   //   }
   // }, [findAll, pageNumber, pageSize]);
 
-  useEffect(() => {
-    const fetchList = async () => {
-      try {
-        setIsLoading(true);
-        const { findAll } = usuarioService();
-        const response = await findAll();
-        console.log("DATA", response);
-        setData(response?.content);
-      } catch (error) {
-        console.error("Ocorreu um erro ao buscar dados de usuário.", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchList();
+  const fetchList = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const { findAll } = usuarioService();
+      const response = await findAll();
+      console.log("DATA", response);
+      setData(response?.content);
+    } catch (error) {
+      console.error("Ocorreu um erro ao buscar dados de usuário.", error);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchList();
+  }, [fetchList]);
 
   return {
     data,

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import type { UsuarioResponseList } from "../../../service/types";
-import { usuarioService } from "../../../service/usuarioService";
+import type { UsuarioResponseList } from "../../service/types";
+import { usuarioService } from "../../service/usuarioService";
 
 const INITIAL_STATE_VALUES = {
   data: [],

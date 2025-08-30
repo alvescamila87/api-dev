@@ -15,10 +15,10 @@ export default function ListaUsuario() {
         <TableHead>
           <TableRow>
             <TableCell align="right">ID</TableCell>
-            <TableCell align="right">Nome</TableCell>
-            <TableCell align="right">Tipo Permissão</TableCell>
-            <TableCell align="right">E-mail</TableCell>
             <TableCell align="right">Ativo?</TableCell>
+            <TableCell align="right">Nome</TableCell>
+            <TableCell align="right">E-mail</TableCell>
+            <TableCell align="right">Tipo Permissão</TableCell>
           </TableRow>
         </TableHead>
         {isLoading ? (
@@ -31,12 +31,12 @@ export default function ListaUsuario() {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell align="right">{row.id}</TableCell>
-                <TableCell align="right">{row.nome}</TableCell>
-                <TableCell align="right">{row.tipoPermissao}</TableCell>
-                <TableCell align="right">{row.email}</TableCell>
                 <TableCell align="right">
                   {row.ativo ? "Ativo" : "Inativo"}
                 </TableCell>
+                <TableCell align="right">{row.nome}</TableCell>
+                <TableCell align="right">{row.email}</TableCell>
+                <TableCell align="right">{row.tipoPermissao}</TableCell>
               </TableRow>
             ))}
           </TableBody>

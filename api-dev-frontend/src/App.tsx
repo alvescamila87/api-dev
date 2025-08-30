@@ -1,11 +1,9 @@
-import ListaUsuario from "./usuario/view/components/List";
+import { Home } from "./pages/Home/Home";
 
 export function App() {
   return (
     <>
-      <ListaUsuario />
-
-      {/* <UsuarioForm /> */}
+      <Home />
     </>
   );
 }

@@ -8,19 +8,17 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 const pages = [
   { name: "Home", path: "/" },
-  { name: "Usuários", path: "/usuario" },
+  { name: "Usuários", path: "/usuarios" },
   { name: "Produtos", path: "/produtos" },
 ];
 
 export function NavBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -34,11 +32,12 @@ export function NavBar() {
     <AppBar position="relative">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* LOGO - Desktop */}
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={RouterLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -52,6 +51,7 @@ export function NavBar() {
             LOGO
           </Typography>
 
+          {/* Ícone do Menu - Mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -63,6 +63,8 @@ export function NavBar() {
             >
               <MenuIcon />
             </IconButton>
+
+            {/* Menu Mobile */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -82,7 +84,7 @@ export function NavBar() {
               {pages?.map((page) => (
                 <MenuItem
                   key={page.name}
-                  component={Link}
+                  component={RouterLink}
                   to={page.path}
                   onClick={handleCloseNavMenu}
                 >
@@ -93,11 +95,13 @@ export function NavBar() {
               ))}
             </Menu>
           </Box>
+
+          {/* LOGO - Mobile */}
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={RouterLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -111,10 +115,14 @@ export function NavBar() {
           >
             LOGO
           </Typography>
+
+          {/* Menu Desktop */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages?.map((page) => (
               <Button
                 key={page.name}
+                component={RouterLink}
+                to={page.path}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >

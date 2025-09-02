@@ -7,7 +7,6 @@ export function App() {
   return (
     <BrowserRouter>
       <LayoutContainer>
-        {/* <NavBar /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/usuarios" element={<ListaUsuario />} />

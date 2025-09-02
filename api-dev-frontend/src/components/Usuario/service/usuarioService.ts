@@ -4,22 +4,20 @@ import type { UsuarioResponseList } from "./types";
 const BASE_URL = "http://localhost:8080/usuario";
 
 export const usuarioService = () => {
-  // async function findAll(pageNumber: number, pageSize: number) {
-  //   const response = await axios.get<UsuarioResponseList>(
-  //     `${BASE_URL}/paginacao-2-filtro-complexo`,
-  //     {
-  //       params: {
-  //         pageNumber,
-  //         pageSize,
-  //       },
-  //     }
-  //   );
-  //   return response?.data ?? {};
-  // }
-
-  async function findAll() {
+  async function findAll(
+    pageNumber: number,
+    pageSize: number,
+    filters: string
+  ) {
     const response = await axios.get<UsuarioResponseList>(
-      `${BASE_URL}/paginacao-2-filtro-complexo`
+      `${BASE_URL}/paginacao-2-filtro-complexo`,
+      {
+        params: {
+          pageNumber,
+          pageSize,
+          filters,
+        },
+      }
     );
     return response?.data ?? {};
   }

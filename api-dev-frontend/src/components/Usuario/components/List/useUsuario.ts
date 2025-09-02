@@ -2,42 +2,24 @@ import { useCallback, useEffect, useState } from "react";
 import type { UsuarioResponseList } from "../../service/types";
 import { usuarioService } from "../../service/usuarioService";
 
-const INITIAL_STATE_VALUES = {
-  data: [],
-  pageSize: 0,
-  currentPage: 1,
-  pageNumber: 10,
-};
-
 export const useUsuario = () => {
-  const { findAll } = usuarioService();
+  const [filters, setFilters] = useState<string>("");
+  const [pageNumber, setPageNumber] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPages, setTotalPages] = useState(0);
 
-  //const [pageNumber, setPageNumber] = useState(0);
-  //const [pageSize, setPageSize] = useState(10);
+  const { findAll } = usuarioService();
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<UsuarioResponseList | null>(null);
 
-  // const fetchAll = useCallback(async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await findAll(pageNumber, pageSize);
-  //     console.log("DATA", response);
-  //     setLoading(false);
-  //     setData(response);
-  //   } catch (error) {
-  //     console.error(error, "Ocorreu um erro ao buscar dados de usuário.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }, [findAll, pageNumber, pageSize]);
-
   const fetchList = useCallback(async () => {
     try {
       const { findAll } = usuarioService();
-      const response = await findAll();
+      const response = await findAll(pageNumber, pageSize, filters);
       console.log("DATA", response);
       setData(response?.content);
+      setTotalPages(response?.totalPages);
     } catch (error) {
       console.error("Ocorreu um erro ao buscar dados de usuário.", error);
     } finally {
@@ -49,11 +31,30 @@ export const useUsuario = () => {
     fetchList();
   }, [fetchList]);
 
+  const handlePageNumberChange = (event: any, value: number) => {
+    setPageNumber(value - 1);
+  };
+
+  const handlePageSizeChange = (event: any) => {
+    setPageSize(event.target.value);
+    setPageNumber(0);
+  };
+
+  const handleFiltersChange = (event: any) => {
+    setFilters(event.target.value);
+    setPageNumber(0);
+  };
+
   return {
     data,
     isLoading,
 
-    //setPageNumber,
-    //setPageSize,
+    pageNumber,
+    handlePageNumberChange,
+    pageSize,
+    handlePageSizeChange,
+    filters,
+    handleFiltersChange,
+    totalPages,
   };
 };

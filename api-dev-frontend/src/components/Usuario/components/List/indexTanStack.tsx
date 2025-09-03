@@ -18,7 +18,7 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function ListaUsuario() {
+export default function ListaUsuarioTanStack() {
   const {
     data,
     isLoading,

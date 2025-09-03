@@ -13,7 +13,8 @@ import { Link as RouterLink } from "react-router-dom";
 
 const pages = [
   { name: "Home", path: "/" },
-  { name: "Usuários", path: "/usuarios" },
+  { name: "Usuários 1", path: "/usuarios" },
+  { name: "Usuários 2", path: "/usuarios-tanstack" },
   { name: "Produtos", path: "/produtos" },
 ];
 

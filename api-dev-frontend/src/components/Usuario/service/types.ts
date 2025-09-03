@@ -20,12 +20,12 @@ export type TipoPermissao = "ADMIN" | "GERENTE" | "OPERADOR" | "VISITANTE";
 
 export type UsuarioResponseList = UsuarioResponse[];
 
-// export const enum EnumTipoPermissao {
-//   ADMIN = "ADMIN",
-//   GERENTE = "GERENTE",
-//   OPERADOR = "OPERADOR",
-//   VISITANTE = "VISITANTE",
-// }
+export type UsuarioPageableResponse = {
+  content: UsuarioResponseList;
+  totalPages: number;
+  pageNumber: number;
+  pageSize: number;
+};
 
 export const ENUM_TIPO_PERMISSAO = [
   "ADMIN",

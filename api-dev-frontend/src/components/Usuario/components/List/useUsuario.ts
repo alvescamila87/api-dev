@@ -25,7 +25,7 @@ export const useUsuario = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [pageNumber, pageSize, filters]);
 
   useEffect(() => {
     fetchList();
@@ -36,7 +36,7 @@ export const useUsuario = () => {
   };
 
   const handlePageSizeChange = (event: any) => {
-    setPageSize(event.target.value);
+    setPageSize(Number(event.target.value));
     setPageNumber(0);
   };
 

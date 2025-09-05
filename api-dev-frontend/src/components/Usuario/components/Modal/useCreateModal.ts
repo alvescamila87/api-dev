@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   ENUM_TIPO_PERMISSAO,
   type TipoPermissao,
@@ -37,28 +36,33 @@ export const useCreateModal = () => {
   const {
     register,
     handleSubmit,
-    formState: {},
+    formState: { errors },
     reset,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
-    defaultValues: currentData?.id ? currentData : INITIAL_STATE_VALUES,
+    defaultValues: INITIAL_STATE_VALUES,
   });
-
-  const { errors, isSubmitting } = formState;
-  console.log("Errors: ", errors);
-  console.log("isSubmitting: ", isSubmitting);
-
-  const [currentData, setCurrentData] = useState<UsuarioForm | null>(null);
 
   const mutate = useMutation({
     mutationFn: upsert,
     retry: 2,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["usuario-data"] });
+      reset(),
     },
   });
 
-  return { register };
+  const onSubmit = (formData: UsuarioForm) => {
+    mutate.mutate(formData)
+  } 
+
+  return { 
+    mutate, 
+    register, 
+    handleSubmit, 
+    errors, 
+    onSubmit 
+  };
 };

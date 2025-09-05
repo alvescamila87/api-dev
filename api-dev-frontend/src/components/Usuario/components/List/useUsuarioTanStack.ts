@@ -1,8 +1,8 @@
-import { usuarioServiceTanStack } from "../../service/usuarioServiceTanStack";
+import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
 import { useQuery } from "@tanstack/react-query";
 
 export const useUsuarioTanStack = () => {
-  const { findAll } = usuarioServiceTanStack();
+  const { findAll } = useUsuarioServiceTanStack();
 
   const query = useQuery({
     queryFn: findAll,

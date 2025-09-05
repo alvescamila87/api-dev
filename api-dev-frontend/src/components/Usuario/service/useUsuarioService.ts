@@ -3,7 +3,7 @@ import type { UsuarioPageableResponse } from "./types";
 
 const API_URL = "http://localhost:8080/usuario";
 
-export const usuarioService = () => {
+export const useUsuarioService = () => {
   async function findAll(
     pageNumber: number,
     pageSize: number,

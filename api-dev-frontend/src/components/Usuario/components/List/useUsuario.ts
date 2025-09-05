@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { UsuarioResponseList } from "../../service/types";
-import { usuarioService } from "../../service/usuarioService";
+import { useUsuarioService } from "../../service/useUsuarioService";
 
 export const useUsuario = () => {
   const [filters, setFilters] = useState<string>("");
@@ -8,14 +8,14 @@ export const useUsuario = () => {
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
 
-  const { findAll } = usuarioService();
+  const { findAll } = useUsuarioService();
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<UsuarioResponseList | null>(null);
 
   const fetchList = useCallback(async () => {
     try {
-      const { findAll } = usuarioService();
+      const { findAll } = useUsuarioService();
       const response = await findAll(pageNumber, pageSize, filters);
       console.log("DATA", response);
       setData(response?.content);

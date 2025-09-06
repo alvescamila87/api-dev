@@ -5,11 +5,16 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { useUsuario } from "./useUsuario";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Box,
+  Button,
   CircularProgress,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Pagination,
@@ -17,11 +22,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useUsuarioTanStack } from "./useUsuarioTanStack";
+import { CreateModal } from "../Modal";
+// import { CreateModal } from "../Modal";
 
 export default function ListaUsuarioTanStack() {
   const {
-    data,
-    isLoading,
+    usuarios,
+    isFetching,
 
     pageNumber,
     handlePageNumberChange,
@@ -30,13 +38,33 @@ export default function ListaUsuarioTanStack() {
     filters,
     handleFiltersChange,
     totalPages,
-  } = useUsuario();
+
+    openModal,
+    handleControlModal,
+  } = useUsuarioTanStack();
   return (
     <>
       <Box sx={{ p: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Lista de Usuários
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 2,
+          }}
+        >
+          <Typography variant="h4" component="h1" gutterBottom>
+            Lista de Usuários
+          </Typography>
+
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleControlModal}
+          >
+            Novo
+          </Button>
+        </Box>
 
         <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
           <TextField
@@ -67,28 +95,61 @@ export default function ListaUsuarioTanStack() {
             <TableHead>
               <TableRow>
                 <TableCell align="right">ID</TableCell>
-                <TableCell align="right">Ativo?</TableCell>
                 <TableCell align="right">Nome</TableCell>
                 <TableCell align="right">E-mail</TableCell>
+                <TableCell align="right">Ativo?</TableCell>
                 <TableCell align="right">Tipo Permissão</TableCell>
+                <TableCell align="center">Ações</TableCell>
               </TableRow>
             </TableHead>
-            {isLoading ? (
+            {isFetching ? (
               <CircularProgress />
             ) : (
               <TableBody>
-                {data?.map((row) => (
+                {usuarios?.map((row) => (
                   <TableRow
                     key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="right">{row.id}</TableCell>
+
+                    <TableCell align="right">{row.nome}</TableCell>
+                    <TableCell align="right">{row.email}</TableCell>
                     <TableCell align="right">
                       {row.ativo ? "Ativo" : "Inativo"}
                     </TableCell>
-                    <TableCell align="right">{row.nome}</TableCell>
-                    <TableCell align="right">{row.email}</TableCell>
                     <TableCell align="right">{row.tipoPermissao}</TableCell>
+                    <TableCell align="center">
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          gap: 1,
+                        }}
+                      >
+                        <IconButton
+                          aria-label="visualizar"
+                          color="primary"
+                          onClick={() => console.log("Visualizar", row.id)}
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                        <IconButton
+                          aria-label="editar"
+                          color="warning"
+                          onClick={() => console.log("Editar", row.id)}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          aria-label="excluir"
+                          color="error"
+                          onClick={() => console.log("Excluir", row.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -107,6 +168,8 @@ export default function ListaUsuarioTanStack() {
           />
         </Box>
       </Box>
+
+      <CreateModal open={openModal} />
     </>
   );
 }

@@ -45,24 +45,34 @@ export const useCreateModal = () => {
     defaultValues: INITIAL_STATE_VALUES,
   });
 
-  const mutate = useMutation({
+  const mutateUsuario = useMutation({
     mutationFn: upsert,
     retry: 2,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["usuario-data"] });
-      reset(),
+      // reset(),
     },
   });
 
   const onSubmit = (formData: UsuarioForm) => {
-    mutate.mutate(formData)
-  } 
+    // mutate.mutate(formData);
+    const usuarioForm: UsuarioForm = {
+      id: formData?.id,
+      nome: formData?.nome,
+      tipoPermissao: formData?.tipoPermissao,
+      email: formData?.email,
+      senha: formData?.senha,
+      ativo: formData?.ativo,
+    };
 
-  return { 
-    mutate, 
-    register, 
-    handleSubmit, 
-    errors, 
-    onSubmit 
+    mutateUsuario.mutate(usuarioForm);
+  };
+
+  return {
+    mutateUsuario,
+    register,
+    handleSubmit,
+    errors,
+    onSubmit,
   };
 };

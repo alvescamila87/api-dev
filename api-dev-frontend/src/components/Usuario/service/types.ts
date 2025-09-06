@@ -27,6 +27,13 @@ export type UsuarioPageableResponse = {
   pageSize: number;
 };
 
+export const defaultUsuarioPageableResponse: UsuarioPageableResponse = {
+  content: [],
+  totalPages: 0,
+  pageNumber: 0,
+  pageSize: 10,
+};
+
 export const ENUM_TIPO_PERMISSAO = [
   "ADMIN",
   "GERENTE",

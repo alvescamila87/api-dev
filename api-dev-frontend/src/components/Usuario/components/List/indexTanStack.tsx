@@ -54,7 +54,7 @@ export default function ListaUsuarioTanStack() {
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>
-            Lista de Usuários
+            Lista de Usuários - TANSTACK
           </Typography>
 
           <Button
@@ -169,7 +169,7 @@ export default function ListaUsuarioTanStack() {
         </Box>
       </Box>
 
-      <CreateModal open={openModal} />
+      {openModal && <CreateModal />}
     </>
   );
 }

@@ -12,7 +12,7 @@ export const useUsuarioTanStack = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -37,6 +37,7 @@ export const useUsuarioTanStack = () => {
   });
 
   const handleControlModal = () => {
+    console.log("Cliquei no botão novo");
     setOpenModal((prevState) => !prevState);
   };
 

@@ -8,7 +8,7 @@ export const useUsuario = () => {
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
 
-  const { findAll } = useUsuarioService();
+  useUsuarioService();
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<UsuarioResponseList | null>(null);

@@ -40,7 +40,7 @@ export const useCreateModal = () => {
     reset,
   } = useForm({
     mode: "all",
-    resolver: yupResolver(schema),
+    //resolver: yupResolver(schema),
     reValidateMode: "onChange",
     defaultValues: INITIAL_STATE_VALUES,
   });

@@ -21,7 +21,11 @@ export const CreateModal = () => {
   return (
     <div className="modal-overlay">
       <div className="modal-body">
-        <h2>Cadastro de usuário</h2>
+        {mutateUsuario?.data?.data?.id ? (
+          <h2>Edição de usuário</h2>
+        ) : (
+          <h2>Cadastro de usuário</h2>
+        )}
 
         <Box
           component="form"
@@ -69,14 +73,24 @@ export const CreateModal = () => {
             control={<Checkbox {...register("ativo")} />}
             label="Ativo"
           />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            disabled={mutateUsuario.isPending}
-          >
-            Salvar
-          </Button>
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: 5 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={mutateUsuario.isPending}
+            >
+              Salvar
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              type="reset"
+              disabled={mutateUsuario.isPending}
+            >
+              Cancelar
+            </Button>
+          </div>
         </Box>
         {mutateUsuario.isPending && <Typography>Salvando...</Typography>}
         {mutateUsuario.isError && (

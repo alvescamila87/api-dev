@@ -9,11 +9,11 @@ export type UsuarioResponse = {
 
 export type UsuarioForm = {
   id: number | null;
-  nome: string | null;
-  tipoPermissao: TipoPermissao | null;
-  email: string | null;
-  senha: string | null;
-  ativo: boolean | null;
+  nome: string;
+  tipoPermissao: TipoPermissao;
+  email: string;
+  senha: string;
+  ativo: boolean;
 };
 
 export type TipoPermissao = "ADMIN" | "GERENTE" | "OPERADOR" | "VISITANTE";

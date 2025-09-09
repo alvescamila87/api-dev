@@ -8,27 +8,30 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 
 const INITIAL_STATE_VALUES: UsuarioForm = {
   id: null,
-  nome: null,
-  email: null,
-  senha: null,
+  nome: "",
+  email: "",
+  senha: "",
   tipoPermissao: "" as TipoPermissao,
   ativo: true,
 };
 
 const schema = yup.object().shape({
-  id: yup.number().nullable(),
+  id: yup.number().nullable().default(null),
   nome: yup.string().required("Campo obrigatório"),
   email: yup.string().required("Campo obrigatório"),
-  senha: yup.string().required("Campo obrigatório"),
+  senha: yup
+    .string()
+    .min(6, "A senha deve possuir pelo menos 6 caracteres")
+    .max(25, "A senha deve possuir no máximo 25 caracteres")
+    .required("Campo obrigatório"),
   tipoPermissao: yup
     .string()
-    .oneOf(ENUM_TIPO_PERMISSAO)
+    .oneOf([...ENUM_TIPO_PERMISSAO, ""])
     .required("Campo obrigatório"),
-  ativo: yup.bool().nullable(),
+  ativo: yup.bool().default(true),
 });
 
 export const useCreateModal = () => {
@@ -43,7 +46,7 @@ export const useCreateModal = () => {
     reset,
   } = useForm({
     mode: "all",
-    //resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
     reValidateMode: "onChange",
     defaultValues: INITIAL_STATE_VALUES,
   });

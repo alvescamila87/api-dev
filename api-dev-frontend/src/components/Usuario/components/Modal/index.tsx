@@ -24,7 +24,7 @@ export const CreateModal = ({ onClose }: CreateModalProps) => {
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      onClose(); // fecha clicando fora
+      onClose();
     }
   };
 
@@ -40,13 +40,13 @@ export const CreateModal = ({ onClose }: CreateModalProps) => {
         <Box
           component="form"
           className="input-container"
-          //onSubmit={handleSubmit(onSubmit)}
-          onSubmit={console.log}
+          onSubmit={handleSubmit(onSubmit)}
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
           <TextField
             label="Nome"
             {...register("nome")}
+            required
             fullWidth
             margin="normal"
             error={!!errors.nome}
@@ -56,19 +56,38 @@ export const CreateModal = ({ onClose }: CreateModalProps) => {
             label="E-mail"
             type="email"
             {...register("email")}
+            required
             fullWidth
             margin="normal"
             error={!!errors.email}
             helperText={errors.email?.message}
           />
-          <FormControl fullWidth margin="normal" error={!!errors.tipoPermissao}>
+          <TextField
+            label="Senha"
+            type="password"
+            {...register("senha")}
+            required
+            fullWidth
+            margin="normal"
+            error={!!errors.senha}
+            helperText={errors.senha?.message}
+          />
+          <FormControl
+            fullWidth
+            margin="normal"
+            error={!!errors.tipoPermissao}
+            required
+          >
             <InputLabel>Tipo de Permissão</InputLabel>
             <Select
               label="Tipo de Permissão"
               defaultValue=""
               {...register("tipoPermissao")}
             >
-              <MenuItem value="ADMIN">Admin</MenuItem>
+              <MenuItem value="" disabled>
+                Selecione uma opção
+              </MenuItem>
+              <MenuItem value="ADMIN">Administrador</MenuItem>
               <MenuItem value="GERENTE">Gerente</MenuItem>
               <MenuItem value="OPERADOR">Operador</MenuItem>
               <MenuItem value="VISITANTE">Visitante</MenuItem>
@@ -80,8 +99,8 @@ export const CreateModal = ({ onClose }: CreateModalProps) => {
             )}
           </FormControl>
           <FormControlLabel
-            control={<Checkbox {...register("ativo")} />}
-            label="Ativo"
+            control={<Checkbox {...register("ativo")} defaultChecked />}
+            label="Usuário ativo"
           />
           <div style={{ display: "flex", justifyContent: "flex-end", gap: 5 }}>
             <Button

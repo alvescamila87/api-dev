@@ -169,7 +169,7 @@ export default function ListaUsuarioTanStack() {
         </Box>
       </Box>
 
-      {openModal && <CreateModal />}
+      {openModal && <CreateModal onClose={handleControlModal} />}
     </>
   );
 }

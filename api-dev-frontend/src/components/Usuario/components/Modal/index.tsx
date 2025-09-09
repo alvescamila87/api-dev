@@ -14,12 +14,22 @@ import { useCreateModal } from "./useCreateModal";
 import type { AxiosError } from "axios";
 import "./modal.css";
 
-export const CreateModal = () => {
+interface CreateModalProps {
+  onClose: () => void;
+}
+
+export const CreateModal = ({ onClose }: CreateModalProps) => {
   const { mutateUsuario, register, handleSubmit, errors, onSubmit } =
     useCreateModal();
 
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose(); // fecha clicando fora
+    }
+  };
+
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-body">
         {mutateUsuario?.data?.data?.id ? (
           <h2>Edição de usuário</h2>
@@ -86,6 +96,7 @@ export const CreateModal = () => {
               variant="outlined"
               color="primary"
               type="reset"
+              onClick={onClose}
               disabled={mutateUsuario.isPending}
             >
               Cancelar

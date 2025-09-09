@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 
 const INITIAL_STATE_VALUES: UsuarioForm = {
   id: null,
@@ -32,7 +33,9 @@ const schema = yup.object().shape({
 
 export const useCreateModal = () => {
   const { upsert } = useUsuarioServiceTanStack();
+
   const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,

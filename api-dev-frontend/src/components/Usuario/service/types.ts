@@ -10,7 +10,7 @@ export type UsuarioResponse = {
 export type UsuarioForm = {
   id: number | null;
   nome: string;
-  tipoPermissao: TipoPermissao;
+  tipoPermissao: TipoPermissao | "";
   email: string;
   senha: string;
   ativo: boolean;

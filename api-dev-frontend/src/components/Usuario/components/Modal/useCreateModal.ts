@@ -6,9 +6,10 @@ import {
 import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useForm, type SubmitHandler } from "react-hook-form";
 
 const INITIAL_STATE_VALUES: UsuarioForm = {
   id: null,
@@ -35,7 +36,7 @@ const schema = yup.object().shape({
   ativo: yup.bool().default(true),
 });
 
-export const useCreateModal = () => {
+export const useCreateModal = (onClose: () => void) => {
   const [showPassword, setShowPassword] = useState(false);
   const { upsert } = useUsuarioServiceTanStack();
 
@@ -58,11 +59,22 @@ export const useCreateModal = () => {
     retry: 2,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["usuario-data"] });
-      // reset(),
+      toast.success("Usuaário salvo com sucesso!");
+      if (onClose) {
+        reset();
+        onClose();
+      }
+    },
+    onError: (error: any) => {
+      if (Array.isArray(error.response?.data)) {
+        error.response.data.forEach((msg: string) => toast.error(msg));
+      } else {
+        toast.error("Erro ao salvar usuário!");
+      }
     },
   });
 
-  const onSubmit = (formData: UsuarioForm) => {
+  const onSubmit: SubmitHandler<UsuarioForm> = (formData) => {
     // mutate.mutate(formData);
     const usuarioForm: UsuarioForm = {
       id: formData?.id,

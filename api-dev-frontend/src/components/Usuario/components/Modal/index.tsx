@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useCreateModal } from "./useCreateModal";
-import type { AxiosError } from "axios";
+// import type { AxiosError } from "axios";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "./modal.css";
 
@@ -32,7 +32,7 @@ export const CreateModal = ({ onClose }: CreateModalProps) => {
     showPassword,
     handleClickShowPassword,
     handleMouseDownPassword,
-  } = useCreateModal();
+  } = useCreateModal(onClose);
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -147,7 +147,7 @@ export const CreateModal = ({ onClose }: CreateModalProps) => {
             </Button>
           </div>
         </Box>
-        {mutateUsuario.isPending && <Typography>Salvando...</Typography>}
+        {/* {mutateUsuario.isPending && <Typography>Salvando...</Typography>}
         {mutateUsuario.isError && (
           <Typography color="error">
             Ocorreu um erro: {(mutateUsuario.error as AxiosError).message}
@@ -155,7 +155,7 @@ export const CreateModal = ({ onClose }: CreateModalProps) => {
         )}
         {mutateUsuario.isSuccess && (
           <Typography color="primary">Usuário salvo com sucesso!</Typography>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 
 const INITIAL_STATE_VALUES: UsuarioForm = {
   id: null,
@@ -35,6 +36,7 @@ const schema = yup.object().shape({
 });
 
 export const useCreateModal = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const { upsert } = useUsuarioServiceTanStack();
 
   const queryClient = useQueryClient();
@@ -74,11 +76,25 @@ export const useCreateModal = () => {
     mutateUsuario.mutate(usuarioForm);
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
   return {
     mutateUsuario,
     register,
     handleSubmit,
     errors,
     onSubmit,
+
+    showPassword,
+    handleClickShowPassword,
+    handleMouseDownPassword,
   };
 };

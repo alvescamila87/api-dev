@@ -34,9 +34,9 @@ export const useUsuarioServiceTanStack = () => {
     let response: AxiosResponse<UsuarioForm>;
 
     if (data?.id) {
-      response = await axios.put(`${API_URL}/usuario/${data.id}`, data);
+      response = await axios.put(`${API_URL}/${data.id}`, data);
     } else {
-      response = await axios.post(`${API_URL}/usuario`, data);
+      response = await axios.post(`${API_URL}`, data);
     }
     return response;
   };

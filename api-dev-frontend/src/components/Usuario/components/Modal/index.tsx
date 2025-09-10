@@ -4,6 +4,8 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -12,6 +14,7 @@ import {
 } from "@mui/material";
 import { useCreateModal } from "./useCreateModal";
 import type { AxiosError } from "axios";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "./modal.css";
 
 interface CreateModalProps {
@@ -19,8 +22,17 @@ interface CreateModalProps {
 }
 
 export const CreateModal = ({ onClose }: CreateModalProps) => {
-  const { mutateUsuario, register, handleSubmit, errors, onSubmit } =
-    useCreateModal();
+  const {
+    mutateUsuario,
+    register,
+    handleSubmit,
+    errors,
+    onSubmit,
+
+    showPassword,
+    handleClickShowPassword,
+    handleMouseDownPassword,
+  } = useCreateModal();
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -64,8 +76,21 @@ export const CreateModal = ({ onClose }: CreateModalProps) => {
           />
           <TextField
             label="Senha"
-            type="password"
+            type={showPassword ? "text" : "password"}
             {...register("senha")}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             required
             fullWidth
             margin="normal"

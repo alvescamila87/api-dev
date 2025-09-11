@@ -13,6 +13,7 @@ export const useUsuarioTanStack = () => {
   const [pageSize, setPageSize] = useState(10);
 
   const [openModal, setOpenModal] = useState(false);
+  const [selectId, setSelectId] = useState<number | null>(null);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -37,8 +38,10 @@ export const useUsuarioTanStack = () => {
   });
 
   const handleControlModal = () => {
-    console.log("Cliquei no botão novo");
     setOpenModal((prevState) => !prevState);
+    if (openModal) {
+      setSelectId(null);
+    }
   };
 
   const handlePageNumberChange = (event: any, value: number) => {
@@ -55,6 +58,11 @@ export const useUsuarioTanStack = () => {
     setPageNumber(0);
   };
 
+  const handleOpenViewModal = (id: number) => {
+    setSelectId(id);
+    setOpenModal(true);
+  };
+
   return {
     ...query,
     usuarios: query?.data?.content ?? [],
@@ -69,5 +77,8 @@ export const useUsuarioTanStack = () => {
 
     openModal,
     handleControlModal,
+
+    selectId,
+    handleOpenViewModal,
   };
 };

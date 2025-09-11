@@ -30,6 +30,11 @@ export const useUsuarioServiceTanStack = () => {
     return response?.data;
   };
 
+  const findById = async (id: number) => {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response?.data ?? {};
+  };
+
   const upsert = async (data: UsuarioForm) => {
     let response: AxiosResponse<UsuarioForm>;
 
@@ -43,6 +48,7 @@ export const useUsuarioServiceTanStack = () => {
 
   return {
     findAll,
+    findById,
     upsert,
   };
 };

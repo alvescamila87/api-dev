@@ -19,9 +19,10 @@ import "./modal.css";
 
 interface CreateModalProps {
   onClose: () => void;
+  idSelected?: number;
 }
 
-export const CreateModal = ({ onClose }: CreateModalProps) => {
+export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
   const {
     mutateUsuario,
     register,

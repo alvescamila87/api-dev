@@ -41,6 +41,9 @@ export default function ListaUsuarioTanStack() {
 
     openModal,
     handleControlModal,
+
+    selectId,
+    handleOpenViewModal,
   } = useUsuarioTanStack();
   return (
     <>
@@ -130,7 +133,8 @@ export default function ListaUsuarioTanStack() {
                         <IconButton
                           aria-label="visualizar"
                           color="primary"
-                          onClick={() => console.log("Visualizar", row.id)}
+                          //onClick={() => console.log("Visualizar", row.id)}
+                          onClick={() => handleOpenViewModal(row.id)}
                         >
                           <VisibilityIcon />
                         </IconButton>
@@ -169,7 +173,9 @@ export default function ListaUsuarioTanStack() {
         </Box>
       </Box>
 
-      {openModal && <CreateModal onClose={handleControlModal} />}
+      {openModal && (
+        <CreateModal onClose={handleControlModal} idSelected={selectId!} />
+      )}
     </>
   );
 }

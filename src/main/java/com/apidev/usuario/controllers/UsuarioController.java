@@ -36,6 +36,11 @@ public class UsuarioController {
         return ResponseEntity.ok(service.findAllComFiltro(page, size, filter));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getUsuarioById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Void> addUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
        boolean resultado = service.addUsuario(usuarioDTO);

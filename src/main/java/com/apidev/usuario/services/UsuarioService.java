@@ -70,6 +70,17 @@ public class UsuarioService {
         return listaDeUsuariosDTO;
     }
 
+    public UsuarioDTO getUsuarioById(Long id) {
+
+        Optional<UsuarioEntity> usuarioEntity = repository.findById(id);
+
+        if(usuarioEntity.isEmpty()) {
+            throw new IllegalArgumentException("Usuário não encontrado por esse ID: " + id);
+        }
+
+        return UsuarioDTO.of(usuarioEntity.get());
+    }
+
     public boolean addUsuario(UsuarioDTO usuarioDTO) {
 
         validarInput(usuarioDTO);
@@ -113,9 +124,9 @@ public class UsuarioService {
 
     protected void findById(Long id) {
 
-        Optional<UsuarioEntity> usuarioEntity = repository.findById(id);
+        boolean resultado = repository.existsById(id);
 
-        if (usuarioEntity.isEmpty()) {
+        if (!resultado) {
             throw new IllegalArgumentException("Usuário não encontrado por esse ID: " + id);
         }
     }

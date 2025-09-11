@@ -29,7 +29,7 @@ public class UsuarioDTO {
 
     @NotBlank(message = "Senha é um campo obrigatório")
     @Size(min = 6, max = 25, message = "A senha deve ter entre {min} e {max} caracteres")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,25}$",
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{6,25}$",
             message = "A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial")
     private String senha;
 

@@ -19,7 +19,7 @@ import "./modal.css";
 
 interface CreateModalProps {
   onClose: () => void;
-  idSelected?: number;
+  idSelected?: number | null;
 }
 
 export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
@@ -33,7 +33,9 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
     showPassword,
     handleClickShowPassword,
     handleMouseDownPassword,
-  } = useCreateModal(onClose);
+
+    isFetching,
+  } = useCreateModal({ onClose, idSelected });
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -59,6 +61,7 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
           <TextField
             label="Nome"
             {...register("nome")}
+            defaultValue={""}
             required
             fullWidth
             margin="normal"
@@ -69,6 +72,7 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
             label="E-mail"
             type="email"
             {...register("email")}
+            defaultValue={""}
             required
             fullWidth
             margin="normal"
@@ -78,6 +82,7 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
           <TextField
             label="Senha"
             type={showPassword ? "text" : "password"}
+            defaultValue={""}
             {...register("senha")}
             InputProps={{
               endAdornment: (

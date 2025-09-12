@@ -4,12 +4,17 @@ import {
   type UsuarioForm,
 } from "../../service/types";
 import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useForm, type SubmitHandler } from "react-hook-form";
+
+interface UseCreateModalProps {
+  onClose: () => void;
+  idSelected?: number | null;
+}
 
 const INITIAL_STATE_VALUES: UsuarioForm = {
   id: null,
@@ -36,9 +41,12 @@ const schema = yup.object().shape({
   ativo: yup.bool().default(true),
 });
 
-export const useCreateModal = (onClose: () => void) => {
+export const useCreateModal = ({
+  onClose,
+  idSelected,
+}: UseCreateModalProps) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { upsert } = useUsuarioServiceTanStack();
+  const { upsert, findById } = useUsuarioServiceTanStack();
 
   const queryClient = useQueryClient();
 
@@ -54,14 +62,28 @@ export const useCreateModal = (onClose: () => void) => {
     defaultValues: INITIAL_STATE_VALUES,
   });
 
+  const { data: usuarioData, isFetching } = useQuery({
+    queryKey: ["usuario", idSelected],
+    queryFn: () => findById(idSelected!),
+    enabled: !!idSelected,
+  });
+
+  useEffect(() => {
+    if (usuarioData) {
+      reset(usuarioData);
+    } else {
+      reset(INITIAL_STATE_VALUES);
+    }
+  }, [usuarioData, reset]);
+
   const mutateUsuario = useMutation({
     mutationFn: upsert,
     retry: 2,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["usuario-data"] });
-      toast.success("Usuaário salvo com sucesso!");
+      toast.success("Usuário salvo com sucesso!");
       if (onClose) {
-        reset();
+        reset(INITIAL_STATE_VALUES);
         onClose();
       }
     },
@@ -108,5 +130,7 @@ export const useCreateModal = (onClose: () => void) => {
     showPassword,
     handleClickShowPassword,
     handleMouseDownPassword,
+
+    isFetching,
   };
 };

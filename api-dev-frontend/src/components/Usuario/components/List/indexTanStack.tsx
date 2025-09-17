@@ -1,13 +1,6 @@
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Box,
@@ -22,8 +15,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useUsuarioTanStack } from "./useUsuarioTanStack";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import { CreateModal } from "../Modal";
+import { useUsuarioTanStack } from "./useUsuarioTanStack";
 // import { CreateModal } from "../Modal";
 
 export default function ListaUsuarioTanStack() {
@@ -100,7 +100,7 @@ export default function ListaUsuarioTanStack() {
                 <TableCell align="right">ID</TableCell>
                 <TableCell align="right">Nome</TableCell>
                 <TableCell align="right">E-mail</TableCell>
-                <TableCell align="right">Ativo?</TableCell>
+                <TableCell align="right">Status</TableCell>
                 <TableCell align="right">Tipo Permissão</TableCell>
                 <TableCell align="center">Ações</TableCell>
               </TableRow>

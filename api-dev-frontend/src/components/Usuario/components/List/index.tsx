@@ -1,11 +1,3 @@
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { useUsuario } from "./useUsuario";
 import {
   Box,
   CircularProgress,
@@ -17,6 +9,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { useUsuario } from "./useUsuario";
 
 export default function ListaUsuario() {
   const {
@@ -67,7 +67,7 @@ export default function ListaUsuario() {
             <TableHead>
               <TableRow>
                 <TableCell align="right">ID</TableCell>
-                <TableCell align="right">Ativo?</TableCell>
+                <TableCell align="right">Status</TableCell>
                 <TableCell align="right">Nome</TableCell>
                 <TableCell align="right">E-mail</TableCell>
                 <TableCell align="right">Tipo Permissão</TableCell>

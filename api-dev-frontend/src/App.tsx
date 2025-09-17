@@ -1,11 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ListaUsuario from "./components/Usuario/components/List";
-import { Home } from "./pages/home/Home";
-import { LayoutContainer } from "./components/layout-container/LayoutContainer";
-import ListaUsuarioTanStack from "./components/Usuario/components/List/indexTanStack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { LayoutContainer } from "./components/layout-container/LayoutContainer";
+import ListaUsuario from "./components/Usuario/components/List";
+import ListaUsuarioTanStack from "./components/Usuario/components/List/indexTanStack";
+import { Home } from "./pages/Home/Home";
 
 const queryClient = new QueryClient();
 

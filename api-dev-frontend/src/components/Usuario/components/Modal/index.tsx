@@ -49,7 +49,7 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
         {mutateUsuario?.data?.data?.id ? (
           <h2>Edição de usuário</h2>
         ) : (
-          <h2>Cadastro de usuário</h2>
+          <h2>Dados de usuário</h2>
         )}
 
         <Box

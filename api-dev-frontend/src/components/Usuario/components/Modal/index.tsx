@@ -20,9 +20,14 @@ import "./modal.css";
 interface CreateModalProps {
   onClose: () => void;
   idSelected?: number | null;
+  mode?: "view" | "create" | "edit";
 }
 
-export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
+export const CreateModal = ({
+  onClose,
+  idSelected,
+  mode = "create",
+}: CreateModalProps) => {
   const {
     mutateUsuario,
     register,
@@ -35,7 +40,9 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
     handleMouseDownPassword,
 
     isFetching,
-  } = useCreateModal({ onClose, idSelected });
+  } = useCreateModal({ onClose, idSelected, mode });
+
+  const isView = mode === "view";
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -46,11 +53,7 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-body">
-        {mutateUsuario?.data?.data?.id ? (
-          <h2>Edição de usuário</h2>
-        ) : (
-          <h2>Dados de usuário</h2>
-        )}
+        {idSelected ? <h2>Edição de usuário</h2> : <h2>Dados de usuário</h2>}
 
         <Box
           component="form"
@@ -67,6 +70,7 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
             margin="normal"
             error={!!errors.nome}
             helperText={errors.nome?.message}
+            disabled={isView}
           />
           <TextField
             label="E-mail"
@@ -78,6 +82,7 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
             margin="normal"
             error={!!errors.email}
             helperText={errors.email?.message}
+            disabled={isView}
           />
           <TextField
             label="Senha"
@@ -97,22 +102,25 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
                 </InputAdornment>
               ),
             }}
-            required
             fullWidth
+            required
             margin="normal"
             error={!!errors.senha}
             helperText={errors.senha?.message}
+            disabled={isView}
           />
           <FormControl
             fullWidth
             margin="normal"
             error={!!errors.tipoPermissao}
+            disabled={isView}
             required
           >
             <InputLabel>Tipo de Permissão</InputLabel>
             <Select
               label="Tipo de Permissão"
               defaultValue=""
+              disabled={isView}
               {...register("tipoPermissao")}
             >
               <MenuItem value="" disabled>
@@ -133,25 +141,29 @@ export const CreateModal = ({ onClose, idSelected }: CreateModalProps) => {
             control={<Checkbox {...register("ativo")} defaultChecked />}
             label="Usuário ativo"
           />
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 5 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              disabled={mutateUsuario.isPending}
+          {isView && (
+            <div
+              style={{ display: "flex", justifyContent: "flex-end", gap: 5 }}
             >
-              Salvar
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              type="reset"
-              onClick={onClose}
-              disabled={mutateUsuario.isPending}
-            >
-              Cancelar
-            </Button>
-          </div>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={mutateUsuario.isPending || mode === "view"}
+              >
+                Salvar
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                type="reset"
+                onClick={onClose}
+                disabled={mutateUsuario.isPending}
+              >
+                Cancelar
+              </Button>
+            </div>
+          )}
         </Box>
         {/* {mutateUsuario.isPending && <Typography>Salvando...</Typography>}
         {mutateUsuario.isError && (

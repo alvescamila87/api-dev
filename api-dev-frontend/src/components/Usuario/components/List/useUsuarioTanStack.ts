@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { type UsuarioPageableResponse } from "../../service/types";
+import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
 
 export const useUsuarioTanStack = () => {
   const { findAll } = useUsuarioServiceTanStack();
@@ -13,6 +13,10 @@ export const useUsuarioTanStack = () => {
   const [pageSize, setPageSize] = useState(10);
 
   const [openModal, setOpenModal] = useState(false);
+  const [modalMode, setModalMode] = useState<"create" | "edit" | "view">(
+    "create"
+  );
+
   const [selectId, setSelectId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -61,6 +65,7 @@ export const useUsuarioTanStack = () => {
   const handleOpenViewModal = (id: number) => {
     setSelectId(id);
     setOpenModal(true);
+    setModalMode("view");
   };
 
   return {
@@ -74,6 +79,8 @@ export const useUsuarioTanStack = () => {
     handlePageSizeChange,
     filters,
     handleFiltersChange,
+
+    modalMode,
 
     openModal,
     handleControlModal,

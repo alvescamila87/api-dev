@@ -1,19 +1,21 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+import * as yup from "yup";
 import {
   ENUM_TIPO_PERMISSAO,
   type TipoPermissao,
   type UsuarioForm,
 } from "../../service/types";
 import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { mountPayload } from "../../util";
 
 interface UseCreateModalProps {
   onClose: () => void;
   idSelected?: number | null;
+  mode: "create" | "edit" | "view";
 }
 
 const INITIAL_STATE_VALUES: UsuarioForm = {
@@ -44,6 +46,7 @@ const schema = yup.object().shape({
 export const useCreateModal = ({
   onClose,
   idSelected,
+  mode,
 }: UseCreateModalProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const { upsert, findById } = useUsuarioServiceTanStack();
@@ -97,15 +100,10 @@ export const useCreateModal = ({
   });
 
   const onSubmit: SubmitHandler<UsuarioForm> = (formData) => {
+    if (mode === "view") return;
+
     // mutate.mutate(formData);
-    const usuarioForm: UsuarioForm = {
-      id: formData?.id,
-      nome: formData?.nome,
-      tipoPermissao: formData?.tipoPermissao,
-      email: formData?.email,
-      senha: formData?.senha,
-      ativo: formData?.ativo,
-    };
+    const usuarioForm = mountPayload(formData);
 
     mutateUsuario.mutate(usuarioForm);
   };

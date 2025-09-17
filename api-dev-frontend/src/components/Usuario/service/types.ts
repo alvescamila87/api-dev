@@ -16,6 +16,15 @@ export type UsuarioForm = {
   ativo: boolean;
 };
 
+export type UsuarioFormPayload = {
+  id: number | null;
+  nome: string;
+  tipoPermissao: TipoPermissao | "";
+  email: string;
+  senha: string;
+  ativo: boolean;
+};
+
 export type TipoPermissao = "ADMIN" | "GERENTE" | "OPERADOR" | "VISITANTE";
 
 export type UsuarioResponseList = UsuarioResponse[];

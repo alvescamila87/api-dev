@@ -39,6 +39,8 @@ export default function ListaUsuarioTanStack() {
     handleFiltersChange,
     totalPages,
 
+    modalMode,
+
     openModal,
     handleControlModal,
 
@@ -174,7 +176,11 @@ export default function ListaUsuarioTanStack() {
       </Box>
 
       {openModal && (
-        <CreateModal onClose={handleControlModal} idSelected={selectId!} />
+        <CreateModal
+          onClose={handleControlModal}
+          idSelected={selectId!}
+          mode={modalMode}
+        />
       )}
     </>
   );

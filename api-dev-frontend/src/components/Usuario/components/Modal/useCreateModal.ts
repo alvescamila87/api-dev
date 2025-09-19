@@ -10,7 +10,7 @@ import {
   type UsuarioForm,
 } from "../../service/types";
 import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
-import { mountPayload } from "../../util";
+import { mountPayload, responseToForm } from "../../util";
 
 interface UseCreateModalProps {
   onClose: () => void;
@@ -73,7 +73,7 @@ export const useCreateModal = ({
 
   useEffect(() => {
     if (usuarioData) {
-      reset(usuarioData);
+      reset(responseToForm(usuarioData));
     } else {
       reset(INITIAL_STATE_VALUES);
     }

@@ -58,6 +58,7 @@ export const useCreateModal = ({
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schema),
@@ -124,6 +125,7 @@ export const useCreateModal = ({
     handleSubmit,
     errors,
     onSubmit,
+    control,
 
     showPassword,
     handleClickShowPassword,

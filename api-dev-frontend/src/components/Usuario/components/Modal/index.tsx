@@ -15,6 +15,8 @@ import {
 import { useCreateModal } from "./useCreateModal";
 // import type { AxiosError } from "axios";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Controller } from "react-hook-form";
+import { TipoPermissaoDescription } from "../../service/types";
 import "./modal.css";
 
 interface CreateModalProps {
@@ -34,6 +36,7 @@ export const CreateModal = ({
     handleSubmit,
     errors,
     onSubmit,
+    control,
 
     showPassword,
     handleClickShowPassword,
@@ -117,20 +120,29 @@ export const CreateModal = ({
             required
           >
             <InputLabel>Tipo de Permissão</InputLabel>
-            <Select
-              label="Tipo de Permissão"
-              defaultValue=""
-              disabled={isView}
-              {...register("tipoPermissao")}
-            >
-              <MenuItem value="" disabled>
-                Selecione uma opção
-              </MenuItem>
-              <MenuItem value="ADMIN">Administrador</MenuItem>
-              <MenuItem value="GERENTE">Gerente</MenuItem>
-              <MenuItem value="OPERADOR">Operador</MenuItem>
-              <MenuItem value="VISITANTE">Visitante</MenuItem>
-            </Select>
+            <Controller
+              name="tipoPermissao"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  labelId="tipo-permissao-label"
+                  label="Tipo de Permissão"
+                  {...field}
+                  disabled={isView}
+                >
+                  <MenuItem value="" disabled>
+                    Selecione uma opção
+                  </MenuItem>
+                  {Object.entries(TipoPermissaoDescription).map(
+                    ([value, label]) => (
+                      <MenuItem key={value} value={value}>
+                        {label}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              )}
+            />
             {errors.tipoPermissao && (
               <Typography color="error" variant="caption" sx={{ ml: 2 }}>
                 {errors.tipoPermissao.message}

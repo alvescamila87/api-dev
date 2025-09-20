@@ -46,6 +46,7 @@ export const useUsuarioTanStack = () => {
     if (openModal) {
       setSelectId(null);
     }
+    setModalMode("create");
   };
 
   const handlePageNumberChange = (event: any, value: number) => {

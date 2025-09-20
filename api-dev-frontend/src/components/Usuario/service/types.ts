@@ -49,3 +49,10 @@ export const ENUM_TIPO_PERMISSAO = [
   "OPERADOR",
   "VISITANTE",
 ] as const;
+
+export const TipoPermissaoDescription: Record<TipoPermissao, string> = {
+  ADMIN: "Administrador",
+  GERENTE: "Gerente",
+  OPERADOR: "Operador",
+  VISITANTE: "Visitante",
+};

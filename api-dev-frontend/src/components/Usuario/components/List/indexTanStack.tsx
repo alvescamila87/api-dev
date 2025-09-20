@@ -135,8 +135,9 @@ export default function ListaUsuarioTanStack() {
                         <IconButton
                           aria-label="visualizar"
                           color="primary"
-                          //onClick={() => console.log("Visualizar", row.id)}
-                          onClick={() => handleOpenViewModal(row.id)}
+                          onClick={() => {
+                            handleOpenViewModal(row.id);
+                          }}
                         >
                           <VisibilityIcon />
                         </IconButton>

@@ -67,7 +67,7 @@ export const useCreateModal = ({
 
   const { data: usuarioData, isFetching } = useQuery({
     queryKey: ["usuario", idSelected],
-    queryFn: () => findById(idSelected!),
+    queryFn: () => findById(Number(idSelected!)),
     enabled: !!idSelected,
   });
 

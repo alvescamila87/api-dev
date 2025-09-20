@@ -74,6 +74,7 @@ export const CreateModal = ({
             error={!!errors.nome}
             helperText={errors.nome?.message}
             disabled={isView}
+            InputLabelProps={{ shrink: isView }}
           />
           <TextField
             label="E-mail"
@@ -86,6 +87,7 @@ export const CreateModal = ({
             error={!!errors.email}
             helperText={errors.email?.message}
             disabled={isView}
+            InputLabelProps={{ shrink: isView }}
           />
           <TextField
             label="Senha"
@@ -111,6 +113,7 @@ export const CreateModal = ({
             error={!!errors.senha}
             helperText={errors.senha?.message}
             disabled={isView}
+            InputLabelProps={{ shrink: isView }}
           />
           <FormControl
             fullWidth

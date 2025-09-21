@@ -69,6 +69,12 @@ export const useUsuarioTanStack = () => {
     setModalMode("view");
   };
 
+  const handleOpenEditModal = (id: number) => {
+    setSelectId(id);
+    setOpenModal(true);
+    setModalMode("edit");
+  };
+
   return {
     ...query,
     usuarios: query?.data?.content ?? [],
@@ -88,5 +94,7 @@ export const useUsuarioTanStack = () => {
 
     selectId,
     handleOpenViewModal,
+
+    handleOpenEditModal,
   };
 };

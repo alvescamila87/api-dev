@@ -46,6 +46,8 @@ export default function ListaUsuarioTanStack() {
 
     selectId,
     handleOpenViewModal,
+
+    handleOpenEditModal,
   } = useUsuarioTanStack();
   return (
     <>
@@ -144,7 +146,7 @@ export default function ListaUsuarioTanStack() {
                         <IconButton
                           aria-label="editar"
                           color="warning"
-                          onClick={() => console.log("Editar", row.id)}
+                          onClick={() => handleOpenEditModal(row.id)}
                         >
                           <EditIcon />
                         </IconButton>

@@ -56,7 +56,7 @@ export const CreateModal = ({
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-body">
-        {idSelected ? <h2>Edição de usuário</h2> : <h2>Dados de usuário</h2>}
+        <h2>Dados de usuário</h2>
 
         {!isFetching && (
           <Box
@@ -157,29 +157,30 @@ export const CreateModal = ({
               control={<Checkbox {...register("ativo")} defaultChecked />}
               label="Usuário ativo"
             />
-            {isView && (
-              <div
-                style={{ display: "flex", justifyContent: "flex-end", gap: 5 }}
-              >
+
+            <div
+              style={{ display: "flex", justifyContent: "flex-end", gap: 5 }}
+            >
+              {!isView && (
                 <Button
                   variant="contained"
                   color="primary"
                   type="submit"
-                  disabled={mutateUsuario.isPending || mode === "view"}
+                  disabled={mutateUsuario.isPending}
                 >
                   Salvar
                 </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  type="reset"
-                  onClick={onClose}
-                  disabled={mutateUsuario.isPending}
-                >
-                  Cancelar
-                </Button>
-              </div>
-            )}
+              )}
+              <Button
+                variant="outlined"
+                color="primary"
+                type="reset"
+                onClick={onClose}
+                disabled={mutateUsuario.isPending}
+              >
+                Cancelar
+              </Button>
+            </div>
           </Box>
         )}
         {/* {mutateUsuario.isPending && <Typography>Salvando...</Typography>}

@@ -22,6 +22,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { ConfirmDeleteDialog } from "../ConfirmeDeleteDialog";
 import { CreateModal } from "../Modal";
 import { useUsuarioTanStack } from "./useUsuarioTanStack";
 // import { CreateModal } from "../Modal";
@@ -48,6 +49,10 @@ export default function ListaUsuarioTanStack() {
     handleOpenViewModal,
 
     handleOpenEditModal,
+
+    openDeleteDialog,
+    handleOpenDeleteDialog,
+    handleCloseDeleteDialog,
   } = useUsuarioTanStack();
   return (
     <>
@@ -153,7 +158,7 @@ export default function ListaUsuarioTanStack() {
                         <IconButton
                           aria-label="excluir"
                           color="error"
-                          onClick={() => console.log("Excluir", row.id)}
+                          onClick={() => handleOpenDeleteDialog(row.id)}
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -185,6 +190,8 @@ export default function ListaUsuarioTanStack() {
           mode={modalMode}
         />
       )}
+
+      {openDeleteDialog && <ConfirmDeleteDialog />}
     </>
   );
 }

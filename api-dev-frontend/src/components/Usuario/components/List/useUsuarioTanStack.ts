@@ -13,6 +13,8 @@ export const useUsuarioTanStack = () => {
   const [pageSize, setPageSize] = useState(10);
 
   const [openModal, setOpenModal] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
   const [modalMode, setModalMode] = useState<"create" | "edit" | "view">(
     "create"
   );
@@ -75,6 +77,14 @@ export const useUsuarioTanStack = () => {
     setModalMode("edit");
   };
 
+  const handleOpenDeleteDialog = (id: number) => {
+    setOpenDeleteDialog(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
+  };
+
   return {
     ...query,
     usuarios: query?.data?.content ?? [],
@@ -96,5 +106,9 @@ export const useUsuarioTanStack = () => {
     handleOpenViewModal,
 
     handleOpenEditModal,
+
+    openDeleteDialog,
+    handleOpenDeleteDialog,
+    handleCloseDeleteDialog,
   };
 };

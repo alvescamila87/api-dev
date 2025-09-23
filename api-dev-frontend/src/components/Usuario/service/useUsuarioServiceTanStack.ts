@@ -1,4 +1,4 @@
-import axios, { Axios, type AxiosResponse } from "axios";
+import axios, { type AxiosResponse } from "axios";
 import { type UsuarioForm, type UsuarioPageableResponse } from "./types";
 
 const API_URL = "http://localhost:8080/usuario";
@@ -46,9 +46,14 @@ export const useUsuarioServiceTanStack = () => {
     return response;
   };
 
+  const deleteUsuario = async (id: number) => {
+    return await axios.delete(`${API_URL}/${id}`);
+  };
+
   return {
     findAll,
     findById,
     upsert,
+    deleteUsuario,
   };
 };

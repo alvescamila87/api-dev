@@ -4,7 +4,7 @@ import { type UsuarioPageableResponse } from "../../service/types";
 import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
 
 export const useUsuarioTanStack = () => {
-  const { findAll } = useUsuarioServiceTanStack();
+  const { findAll, deleteUsuario } = useUsuarioServiceTanStack();
 
   const [filters, setFilters] = useState<string>("");
   const [debouncedFilters, setDebouncedFilters] = useState<string>("");
@@ -79,11 +79,25 @@ export const useUsuarioTanStack = () => {
 
   const handleOpenDeleteDialog = (id: number) => {
     setOpenDeleteDialog(true);
+    setSelectId(id);
   };
 
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false);
   };
+
+  async function handleConfirmeDelete() {
+    try {
+      if (!selectId) return;
+
+      await deleteUsuario(selectId);
+      handleCloseDeleteDialog();
+      setSelectId(null);
+      query.refetch();
+    } catch (error) {
+      console.error(error, "Ocorreu erro ao deletar usuário por ID.");
+    }
+  }
 
   return {
     ...query,
@@ -110,5 +124,6 @@ export const useUsuarioTanStack = () => {
     openDeleteDialog,
     handleOpenDeleteDialog,
     handleCloseDeleteDialog,
+    handleConfirmeDelete,
   };
 };

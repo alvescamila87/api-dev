@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { LayoutContainer } from "./components/layout-container/LayoutContainer";
-import ListaUsuario from "./components/Usuario/components/List";
+import { ListaProduto } from "./components/Produto";
 import ListaUsuarioTanStack from "./components/Usuario/components/List/indexTanStack";
 import { Home } from "./pages/Home/Home";
 
@@ -16,12 +16,9 @@ export function App() {
         <LayoutContainer>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/usuarios" element={<ListaUsuario />} />
-            <Route
-              path="/usuarios-tanstack"
-              element={<ListaUsuarioTanStack />}
-            />
-            <Route path="/produtos" element={<ListaUsuario />} />
+            {/* <Route path="/usuarios-old sem tanstack" element={<ListaUsuario />} /> */}
+            <Route path="/usuarios" element={<ListaUsuarioTanStack />} />
+            <Route path="/produtos" element={<ListaProduto />} />
           </Routes>
           <ToastContainer
             position="top-right"

@@ -53,7 +53,7 @@ export default function ListaUsuarioTanStack() {
     openDeleteDialog,
     handleOpenDeleteDialog,
     handleCloseDeleteDialog,
-    handleConfirmeDelete,
+    handleConfirmDelete,
   } = useUsuarioTanStack();
   return (
     <>
@@ -195,7 +195,7 @@ export default function ListaUsuarioTanStack() {
       {openDeleteDialog && (
         <ConfirmDeleteDialog
           onClose={handleCloseDeleteDialog}
-          onConfirm={handleConfirmeDelete}
+          onConfirm={handleConfirmDelete}
         />
       )}
     </>

@@ -86,7 +86,7 @@ export const useUsuarioTanStack = () => {
     setOpenDeleteDialog(false);
   };
 
-  async function handleConfirmeDelete() {
+  async function handleConfirmDelete() {
     try {
       if (!selectId) return;
 
@@ -124,6 +124,6 @@ export const useUsuarioTanStack = () => {
     openDeleteDialog,
     handleOpenDeleteDialog,
     handleCloseDeleteDialog,
-    handleConfirmeDelete,
+    handleConfirmDelete,
   };
 };

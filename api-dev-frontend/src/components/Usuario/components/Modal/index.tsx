@@ -109,7 +109,7 @@ export const CreateModal = ({
                 ),
               }}
               fullWidth
-              required
+              required={mode === "create" ? true : false}
               margin="normal"
               error={!!errors.senha}
               helperText={errors.senha?.message}

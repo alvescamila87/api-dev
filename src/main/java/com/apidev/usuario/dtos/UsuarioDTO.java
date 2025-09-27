@@ -1,8 +1,7 @@
 package com.apidev.usuario.dtos;
 
-import com.apidev.usuario.entities.UsuarioEntity;
+import com.apidev.usuario.entity.UsuarioEntity;
 import com.apidev.usuario.enums.EnumTipoPermissao;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.beans.BeanUtils;

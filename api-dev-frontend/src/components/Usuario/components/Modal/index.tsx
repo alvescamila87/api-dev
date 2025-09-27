@@ -56,7 +56,11 @@ export const CreateModal = ({
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-body">
-        <h2>Dados de usuário</h2>
+        {mode === "edit" ? (
+          <h2>Editar de usuário</h2>
+        ) : (
+          <h2>Cadastro de usuário</h2>
+        )}
 
         {!isFetching && (
           <Box

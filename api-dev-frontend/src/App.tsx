@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ListaCategoria } from "./components/Categoria";
 import { LayoutContainer } from "./components/layout-container/LayoutContainer";
 import { ListaProduto } from "./components/Produto";
 import ListaUsuarioTanStack from "./components/Usuario/components/List/indexTanStack";
@@ -18,6 +19,7 @@ export function App() {
             <Route path="/" element={<Home />} />
             {/* <Route path="/usuarios-old sem tanstack" element={<ListaUsuario />} /> */}
             <Route path="/usuarios" element={<ListaUsuarioTanStack />} />
+            <Route path="/categorias" element={<ListaCategoria />} />
             <Route path="/produtos" element={<ListaProduto />} />
           </Routes>
           <ToastContainer

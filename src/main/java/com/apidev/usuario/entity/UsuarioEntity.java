@@ -1,4 +1,4 @@
-package com.apidev.usuario.entities;
+package com.apidev.usuario.entity;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.enums.EnumTipoPermissao;

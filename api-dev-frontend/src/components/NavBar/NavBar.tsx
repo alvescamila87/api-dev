@@ -15,6 +15,7 @@ const pages = [
   { name: "Home", path: "/" },
   // { name: "Usuários Old - Sem tanstack", path: "/usuarios" },
   { name: "Usuários", path: "/usuarios" },
+  { name: "Categorias", path: "/categorias" },
   { name: "Produtos", path: "/produtos" },
 ];
 

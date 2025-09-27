@@ -67,7 +67,7 @@ export default function ListaUsuarioTanStack() {
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>
-            Lista de Usuários - TANSTACK
+            Lista de Usuários
           </Typography>
 
           <Button

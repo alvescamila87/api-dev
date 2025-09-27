@@ -2,7 +2,7 @@ package com.apidev.usuario.services;
 
 import com.apidev.usuario.dtos.UsuarioDTO;
 import com.apidev.usuario.dtos.UsuarioFilterDTO;
-import com.apidev.usuario.entities.UsuarioEntity;
+import com.apidev.usuario.entity.UsuarioEntity;
 import com.apidev.usuario.exceptions.ValidationException;
 import com.apidev.usuario.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;

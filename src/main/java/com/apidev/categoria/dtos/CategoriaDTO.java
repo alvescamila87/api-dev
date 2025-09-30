@@ -1,8 +1,10 @@
 package com.apidev.categoria.dtos;
 
+import com.apidev.categoria.entity.CategoriaEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
@@ -19,4 +21,16 @@ public class CategoriaDTO {
 
     @NotBlank(message = "Descrição é um campo obrigatório")
     private String descricao;
+
+    public  CategoriaDTO (CategoriaEntity entity) {
+        BeanUtils.copyProperties(entity, this);
+    }
+
+    public static CategoriaDTO of(CategoriaEntity entity) {
+        return CategoriaDTO
+                .builder()
+                .nome(entity.getNome())
+                .descricao(entity.getDescricao())
+                .build();
+    }
 }

@@ -40,4 +40,16 @@ public class CaetgoriaService {
 
         return listaCegoriasDTO;
     }
+
+    public void findById(Long id) {
+        repository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID " + id + " nao encontrado" ));
+
+    }
+
+    public void delete(Long id) {
+        findById(id);
+        repository.deleteById(id);
+    }
 }

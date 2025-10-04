@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CaetgoriaService {
+public class CategoriaService {
 
     private final CategoriaRepository repository;
 

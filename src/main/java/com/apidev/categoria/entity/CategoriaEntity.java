@@ -1,5 +1,6 @@
 package com.apidev.categoria.entity;
 
+import com.apidev.categoria.dtos.CategoriaDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -23,4 +24,13 @@ public class CategoriaEntity {
 
     @Column(name = "descricao")
     private String descricao;
+
+    public static CategoriaEntity from(CategoriaDTO categoriaDTO) {
+        return CategoriaEntity
+                .builder()
+                .id(categoriaDTO.getId())
+                .nome(categoriaDTO.getNome())
+                .descricao(categoriaDTO.getDescricao())
+                .build();
+    }
 }

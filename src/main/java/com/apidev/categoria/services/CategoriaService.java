@@ -3,7 +3,9 @@ package com.apidev.categoria.services;
 import com.apidev.categoria.dtos.CategoriaDTO;
 import com.apidev.categoria.entity.CategoriaEntity;
 import com.apidev.categoria.repositories.CategoriaRepository;
+import com.apidev.usuario.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -16,12 +18,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoriaService {
 
-    private final CategoriaRepository repository;
+    private final CategoriaRepository categoriaRepository;
 
     public Page<CategoriaDTO> findAll(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("nome").ascending());
 
-        Page<CategoriaEntity> listaCategorias = repository.findAll(pageRequest);
+        Page<CategoriaEntity> listaCategorias = categoriaRepository.findAll(pageRequest);
 
         return listaCategorias.map(CategoriaDTO::of);
 
@@ -30,7 +32,7 @@ public class CategoriaService {
     public List<CategoriaDTO> listAll(){
         List<CategoriaDTO> listaCegoriasDTO = new ArrayList<>();
 
-        List<CategoriaEntity> listaCategoriaEntity = repository.findAll();
+        List<CategoriaEntity> listaCategoriaEntity = categoriaRepository.findAll();
 
         for (CategoriaEntity categoria : listaCategoriaEntity) {
             CategoriaDTO.of(categoria);
@@ -41,8 +43,16 @@ public class CategoriaService {
         return listaCegoriasDTO;
     }
 
+    public boolean addCategoria(CategoriaDTO categoriaDTO) {
+        validarInput(categoriaDTO);
+
+        categoriaRepository.save(CategoriaEntity.from(categoriaDTO));
+
+        return true;
+    }
+
     public void findById(Long id) {
-        repository
+        categoriaRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID " + id + " nao encontrado" ));
 
@@ -50,6 +60,20 @@ public class CategoriaService {
 
     public void delete(Long id) {
         findById(id);
-        repository.deleteById(id);
+        categoriaRepository.deleteById(id);
+    }
+
+    protected void validarInput(CategoriaDTO categoriaDTO) {
+        if(categoriaDTO == null){
+            throw new ValidationException("Campos obrigatórios não preenchidos.");
+        }
+
+        if(StringUtils.isBlank(categoriaDTO.getNome())){
+            throw new ValidationException("Favor informar o NOME do categoria.");
+        }
+
+        if(StringUtils.isBlank(categoriaDTO.getDescricao())) {
+            throw new ValidationException("Favor informar o DESCRIÇÃO do categoria.");
+        }
     }
 }

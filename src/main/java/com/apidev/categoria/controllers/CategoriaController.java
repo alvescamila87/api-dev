@@ -23,6 +23,15 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.findAll(page, size));
     }
 
+    @PostMapping
+    public ResponseEntity<Void> addCatetoria(CategoriaDTO categoriaDTO) {
+        boolean resultado = categoriaService.addCategoria(categoriaDTO);
+        if (!resultado) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarCategoria(@PathVariable Long id) {
         categoriaService.delete(id);

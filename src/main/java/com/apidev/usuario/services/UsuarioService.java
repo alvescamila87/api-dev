@@ -141,7 +141,7 @@ public class UsuarioService {
         if (usuarioEntity.isPresent()) {
             throw new ValidationException("E-mail já cadastrado.");
         }
-        ;
+
     }
 
     protected void validarInput(UsuarioDTO usuarioDTO) {

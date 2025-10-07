@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +52,16 @@ public class CategoriaService {
         return true;
     }
 
+    public boolean updateCategoria(CategoriaDTO categoriaDTO) {
+        validarInput(categoriaDTO);
+
+        categoriaJaCadastrada(categoriaDTO.getNome());
+
+        categoriaRepository.save(CategoriaEntity.from(categoriaDTO));
+
+        return true;
+    }
+
     public void findById(Long id) {
         categoriaRepository
                 .findById(id)
@@ -74,6 +85,16 @@ public class CategoriaService {
 
         if(StringUtils.isBlank(categoriaDTO.getDescricao())) {
             throw new ValidationException("Favor informar o DESCRIÇÃO do categoria.");
+        }
+    }
+
+    protected void categoriaJaCadastrada(String categoria) {
+        if(categoria == null) return;
+
+        Optional<CategoriaEntity> categoriaEntity = categoriaRepository.findByNome(categoria);
+
+        if(categoriaEntity.isPresent()) {
+            throw new ValidationException("Categoria já cadastrada");
         }
     }
 }

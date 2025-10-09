@@ -1,9 +1,13 @@
 package com.apidev.categoria.entity;
 
 import com.apidev.categoria.dtos.CategoriaDTO;
+import com.apidev.produto.ProdutoEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_categoria")
@@ -24,6 +28,9 @@ public class CategoriaEntity {
 
     @Column(name = "descricao")
     private String descricao;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<ProdutoEntity> listaProdutos = new ArrayList<>();
 
     public static CategoriaEntity from(CategoriaDTO categoriaDTO) {
         return CategoriaEntity

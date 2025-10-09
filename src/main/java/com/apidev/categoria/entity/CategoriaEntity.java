@@ -29,7 +29,7 @@ public class CategoriaEntity {
     @Column(name = "descricao")
     private String descricao;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "categoria")
     private List<ProdutoEntity> listaProdutos = new ArrayList<>();
 
     public static CategoriaEntity from(CategoriaDTO categoriaDTO) {

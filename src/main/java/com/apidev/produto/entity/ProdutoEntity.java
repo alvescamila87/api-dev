@@ -1,4 +1,4 @@
-package com.apidev.produto;
+package com.apidev.produto.entity;
 
 import com.apidev.categoria.entity.CategoriaEntity;
 import jakarta.persistence.*;

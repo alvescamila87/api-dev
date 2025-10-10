@@ -1,7 +1,7 @@
 package com.apidev.categoria.entity;
 
 import com.apidev.categoria.dtos.CategoriaDTO;
-import com.apidev.produto.ProdutoEntity;
+import com.apidev.produto.entity.ProdutoEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;

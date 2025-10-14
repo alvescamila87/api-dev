@@ -3,7 +3,9 @@ package com.apidev.produto.services;
 import com.apidev.produto.dtos.ProdutoDTO;
 import com.apidev.produto.entity.ProdutoEntity;
 import com.apidev.produto.repositories.ProdutoRepository;
+import com.apidev.usuario.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,5 +23,27 @@ public class ProdutoService {
         Page<ProdutoEntity> listaProdutos = this.produtoRepository.findAll(pageRequest);
 
         return listaProdutos.map(ProdutoDTO::of);
+    }
+
+    public boolean addProduto(ProdutoDTO produtoDTO) {
+        setValues(produtoDTO);
+
+        produtoRepository.save(ProdutoEntity.from(produtoDTO));
+
+        return true;
+    }
+
+    protected void setValues(ProdutoDTO produtoDTO) {
+        if(produtoDTO == null) {
+            throw new ValidationException("Campos obrigatórios não preenchidos");
+        }
+
+        if(StringUtils.isEmpty(produtoDTO.getNome())) {
+            throw new ValidationException("Campo obrigatório não preenchido");
+        }
+
+        if(StringUtils.isEmpty(produtoDTO.getCategoriaId().toString())) {
+            throw new ValidationException("Campo obrigatório não preenchido");
+        }
     }
 }

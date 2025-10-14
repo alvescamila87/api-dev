@@ -4,11 +4,9 @@ import com.apidev.produto.dtos.ProdutoDTO;
 import com.apidev.produto.services.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/produto")
@@ -23,5 +21,16 @@ public class ProdutoContorller {
         @RequestParam(name = "size", defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(produtoService.findAll(page, size));
+    }
+
+    @PostMapping
+    public ResponseEntity<ProdutoDTO> cadastrarProduto(@RequestBody ProdutoDTO produtoDTO) {
+        boolean result = produtoService.addProduto(produtoDTO);
+
+        if(!result) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

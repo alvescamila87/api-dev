@@ -52,7 +52,9 @@ public class CategoriaService {
         return true;
     }
 
-    public boolean updateCategoria(CategoriaDTO categoriaDTO) {
+    public boolean updateCategoria(CategoriaDTO categoriaDTO, Long id) {
+        findById(id);
+
         validarInput(categoriaDTO);
 
         categoriaJaCadastrada(categoriaDTO.getNome());

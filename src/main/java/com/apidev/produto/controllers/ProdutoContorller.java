@@ -24,7 +24,7 @@ public class ProdutoContorller {
     }
 
     @PostMapping
-    public ResponseEntity<ProdutoDTO> cadastrarProduto(@RequestBody ProdutoDTO produtoDTO) {
+    public ResponseEntity<ProdutoDTO> addProduto(@RequestBody ProdutoDTO produtoDTO) {
         boolean result = produtoService.addProduto(produtoDTO);
 
         if(!result) {
@@ -32,5 +32,16 @@ public class ProdutoContorller {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateProduto(@PathVariable Long id, @RequestBody ProdutoDTO produtoDTO) {
+        boolean result = produtoService.updateProduto(produtoDTO, id);
+
+        if(!result) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 }

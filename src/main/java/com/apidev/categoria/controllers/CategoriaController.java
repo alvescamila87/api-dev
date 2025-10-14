@@ -32,15 +32,15 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/id")
-    public ResponseEntity<Void> updateCatetoria(@RequestBody CategoriaDTO categoriaDTO) {
-        boolean resultado = categoriaService.updateCategoria(categoriaDTO);
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateCatetoria(@PathVariable Long id, @RequestBody CategoriaDTO categoriaDTO) {
+        boolean resultado = categoriaService.updateCategoria(categoriaDTO, id);
 
         if (!resultado) {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

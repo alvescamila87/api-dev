@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ProdutoService {
@@ -31,6 +33,22 @@ public class ProdutoService {
         produtoRepository.save(ProdutoEntity.from(produtoDTO));
 
         return true;
+    }
+
+    public boolean updateProduto(ProdutoDTO produtoDTO, Long id) {
+        findById(id);
+
+        setValues(produtoDTO);
+
+        produtoRepository.save(ProdutoEntity.from(produtoDTO));
+
+        return true;
+    }
+
+    public void findById(Long id) {
+        produtoRepository.
+                findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID: " + id + " não encontrado."));
     }
 
     protected void setValues(ProdutoDTO produtoDTO) {

@@ -44,4 +44,10 @@ public class ProdutoContorller {
 
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduto(@PathVariable Long id) {
+        produtoService.deleteProduto(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

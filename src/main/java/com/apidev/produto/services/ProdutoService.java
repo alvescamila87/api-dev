@@ -45,6 +45,12 @@ public class ProdutoService {
         return true;
     }
 
+    public void deleteProduto(Long id) {
+        findById(id);
+
+        produtoRepository.deleteById(id);
+    }
+
     public void findById(Long id) {
         produtoRepository.
                 findById(id)

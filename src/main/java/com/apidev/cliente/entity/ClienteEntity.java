@@ -3,6 +3,8 @@ package com.apidev.cliente.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tb_cliente")
 @Getter
@@ -18,4 +20,10 @@ public class ClienteEntity {
 
     @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "sobrenome", nullable = false)
+    private String sobrenome;
+
+    @Column(name = "data_nascimento", nullable = false)
+    private LocalDate dataNascimento;
 }

@@ -1,7 +1,11 @@
 package com.apidev.endereco.entity;
 
+import com.apidev.cliente.entity.ClienteEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_endereco")
@@ -28,7 +32,7 @@ public class EnderecoEntity {
     @Column(name = "cidade", nullable = false)
     private String cidade;
 
-    @Column(name = "cep", nullable = false, length = 9)
+    @Column(name = "cep", nullable = false, length = 9, unique = true)
     private String cep;
 
     @Column(name = "uf", nullable = false, length = 2)
@@ -36,4 +40,7 @@ public class EnderecoEntity {
 
     @Column(name = "numero")
     private String numero;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<ClienteEntity> clientes = new ArrayList<>();
 }

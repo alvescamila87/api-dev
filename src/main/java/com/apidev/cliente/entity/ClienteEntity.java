@@ -1,5 +1,6 @@
 package com.apidev.cliente.entity;
 
+import com.apidev.endereco.entity.EnderecoEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,4 +27,8 @@ public class ClienteEntity {
 
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
+
+    @ManyToOne
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private EnderecoEntity endereco;
 }

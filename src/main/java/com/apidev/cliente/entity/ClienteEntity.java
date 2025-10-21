@@ -28,6 +28,9 @@ public class ClienteEntity {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
+    @Column(name = "telefone", nullable = false)
+    private String telefone;
+
     @ManyToOne
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private EnderecoEntity endereco;

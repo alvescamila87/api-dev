@@ -1,5 +1,6 @@
 package com.apidev.cliente.entity;
 
+import com.apidev.cliente.enums.EnumTipoPessoa;
 import com.apidev.endereco.entity.EnderecoEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,6 +31,13 @@ public class ClienteEntity {
 
     @Column(name = "telefone", nullable = false)
     private String telefone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_pessoa", nullable = false)
+    private EnumTipoPessoa tipoPessoa;
+
+    @Column(name = "documento", nullable = false)
+    private String documento;
 
     @ManyToOne
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")

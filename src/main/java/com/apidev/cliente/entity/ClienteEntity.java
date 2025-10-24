@@ -1,9 +1,12 @@
 package com.apidev.cliente.entity;
 
+import com.apidev.cliente.dtos.ClienteDTO;
 import com.apidev.cliente.enums.EnumTipoPessoa;
 import com.apidev.endereco.entity.EnderecoEntity;
 import jakarta.persistence.*;
+import jakarta.servlet.http.PushBuilder;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
 
@@ -42,4 +45,22 @@ public class ClienteEntity {
     @ManyToOne
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private EnderecoEntity endereco;
+
+    public ClienteEntity (ClienteDTO clienteDTO) {
+        BeanUtils.copyProperties(this, clienteDTO);
+    }
+
+    public static ClienteEntity from(ClienteDTO clienteDTO) {
+        return ClienteEntity
+                .builder()
+                .id(clienteDTO.getId())
+                .nome(clienteDTO.getNome())
+                .sobrenome(clienteDTO.getSobrenome())
+                .dataNascimento(clienteDTO.getDataNascimento())
+                .telefone(clienteDTO.getTelefone())
+                .tipoPessoa(clienteDTO.getTipoPessoa())
+                .documento(clienteDTO.getDocumento())
+                .endereco(clienteDTO.getEndereco())
+                .build();
+    }
 }

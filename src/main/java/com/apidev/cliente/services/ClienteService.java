@@ -12,6 +12,7 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
 
     public void deleteCliente(Long id) {
+        findById(id);
         clienteRepository.deleteById(id);
     }
 

@@ -2,6 +2,7 @@ package com.apidev.cliente.services;
 
 import com.apidev.cliente.dtos.ClienteDTO;
 import com.apidev.cliente.repositories.ClienteRepository;
+import com.apidev.usuario.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,12 @@ import org.springframework.stereotype.Service;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
+
+    public void setValues(ClienteDTO clienteDTO) {
+        if(clienteDTO == null){
+            throw new ValidationException("Campos obrigatórios não preenchidos.");
+        }
+    }
 
     public void deleteCliente(Long id) {
         findById(id);

@@ -12,6 +12,9 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
 
+    public void addCliente(ClientDTO clienteDTO) {
+    }
+
     public void setValues(ClienteDTO clienteDTO) {
         if(clienteDTO == null){
             throw new ValidationException("Campos obrigatórios não preenchidos.");

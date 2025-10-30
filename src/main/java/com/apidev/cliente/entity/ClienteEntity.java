@@ -39,7 +39,7 @@ public class ClienteEntity {
     @Column(name = "tipo_pessoa", nullable = false)
     private EnumTipoPessoa tipoPessoa;
 
-    @Column(name = "documento", nullable = false)
+    @Column(name = "documento", nullable = false, unique = true)
     private String documento;
 
     @ManyToOne

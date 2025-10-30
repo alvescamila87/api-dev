@@ -7,6 +7,8 @@ import com.apidev.usuario.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ClienteService {
@@ -14,6 +16,19 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
 
     public boolean addCliente(ClienteDTO clienteDTO) {
+
+        setValues(clienteDTO);
+
+        clienteRepository.save(ClienteEntity.from(clienteDTO));
+
+        return true;
+    }
+
+    public boolean updateCliente(Long id, ClienteDTO clienteDTO) {
+
+        findById(id);
+
+        documentoJaExiste(clienteDTO.getDocumento());
 
         setValues(clienteDTO);
 
@@ -62,5 +77,27 @@ public class ClienteService {
         final var clienteOptional = clienteRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID: " + id + " não encontrado."));
         return ClienteDTO.of(clienteOptional);
+    }
+
+    public ClienteDTO findyDocumento(String documentoCliente) {
+        if(documentoCliente == null) {
+            throw new ValidationException("Documento: " + documentoCliente + " não informado.");
+        }
+
+        Optional<ClienteEntity> clienteEntityOptional = clienteRepository.findByDocumento(documentoCliente);
+
+        if(clienteEntityOptional.isEmpty()) {
+            throw new ValidationException("Documento: " + documentoCliente + " não encontrado. Tente outro...");
+        }
+
+        return ClienteDTO.of(clienteEntityOptional.get());
+    }
+
+    public void documentoJaExiste(String documento) {
+        final var result = clienteRepository.existsByDocumento(documento);
+
+        if(result) {
+            throw new ValidationException("Documento: " + documento + " já cadastrado. Tente outro...");
+        }
     }
 }

@@ -17,7 +17,9 @@ public class ClienteService {
 
     public boolean addCliente(ClienteDTO clienteDTO) {
 
-        setValues(clienteDTO);
+        validInput(clienteDTO);
+
+        documentoJaExiste(clienteDTO.getDocumento());
 
         clienteRepository.save(ClienteEntity.from(clienteDTO));
 
@@ -30,14 +32,14 @@ public class ClienteService {
 
         documentoJaExiste(clienteDTO.getDocumento());
 
-        setValues(clienteDTO);
+        validInput(clienteDTO);
 
         clienteRepository.save(ClienteEntity.from(clienteDTO));
 
         return true;
     }
 
-    public void setValues(ClienteDTO clienteDTO) {
+    public void validInput(ClienteDTO clienteDTO) {
         if(clienteDTO == null){
             throw new ValidationException("Campos obrigatórios não preenchidos.");
         }
@@ -94,6 +96,10 @@ public class ClienteService {
     }
 
     public void documentoJaExiste(String documento) {
+        if(documento == null) {
+            return;
+        }
+
         final var result = clienteRepository.existsByDocumento(documento);
 
         if(result) {

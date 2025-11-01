@@ -17,7 +17,7 @@ public class ClienteService {
 
     public boolean addCliente(ClienteDTO clienteDTO) {
 
-        validInput(clienteDTO);
+        validarInput(clienteDTO);
 
         documentoJaExiste(clienteDTO.getDocumento());
 
@@ -30,16 +30,20 @@ public class ClienteService {
 
         findById(id);
 
-        documentoJaExiste(clienteDTO.getDocumento());
+        validarInput(clienteDTO);
 
-        validInput(clienteDTO);
+        Optional<ClienteEntity> clienteEntity = clienteRepository.findByDocumento(clienteDTO.getDocumento());
+
+        if(clienteEntity.isPresent() && clienteEntity.get().getId().equals(id)) {
+            throw new ValidationException("Documento já cadastrado para outro cliente.");
+        }
 
         clienteRepository.save(ClienteEntity.from(clienteDTO));
 
         return true;
     }
 
-    public void validInput(ClienteDTO clienteDTO) {
+    public void validarInput(ClienteDTO clienteDTO) {
         if(clienteDTO == null){
             throw new ValidationException("Campos obrigatórios não preenchidos.");
         }

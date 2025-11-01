@@ -4,6 +4,7 @@ import com.apidev.cliente.dtos.ClienteDTO;
 import com.apidev.cliente.services.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,17 @@ public class ClienteController {
         if(!result) {
             return ResponseEntity.badRequest().build();
         }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateCliente(@PathVariable Long id, @RequestBody @Valid ClienteDTO clienteDTO) {
+        boolean result = clienteService.updateCliente(id, clienteDTO);
+
+        if(!result) {
+            return ResponseEntity.badRequest().build();
+        }
+
         return ResponseEntity.ok().build();
     }
 

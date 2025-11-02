@@ -5,6 +5,9 @@ import com.apidev.cliente.entity.ClienteEntity;
 import com.apidev.cliente.repositories.ClienteRepository;
 import com.apidev.usuario.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,6 +17,20 @@ import java.util.Optional;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
+
+    public Page<ClienteDTO> findAll(int page, int size, String nome) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("nome").ascending());
+
+        Page<ClienteEntity> listaClientes;
+
+        if(nome != null && !nome.isEmpty()) {
+            listaClientes = clienteRepository.findAllByNomeContainingIgnoreCase(nome, pageRequest);
+        } else {
+            listaClientes = clienteRepository.findAll(pageRequest);
+        }
+
+        return listaClientes.map(ClienteDTO::of);
+    }
 
     public boolean addCliente(ClienteDTO clienteDTO) {
 

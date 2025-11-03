@@ -20,7 +20,7 @@ public class ClienteController {
     public ResponseEntity<Page<ClienteDTO>> listarClientes(
             @RequestParam(name = "page") int page,
             @RequestParam(name = "size") int size,
-            @RequestParam(name = "nome") String nome
+            @RequestParam(name = "nome", required = false) String nome
     ){
         return ResponseEntity.ok(clienteService.findAll(page, size, nome));
     }

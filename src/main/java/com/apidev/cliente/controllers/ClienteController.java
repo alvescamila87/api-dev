@@ -4,6 +4,7 @@ import com.apidev.cliente.dtos.ClienteDTO;
 import com.apidev.cliente.services.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,15 @@ import org.springframework.web.bind.annotation.*;
 public class ClienteController {
 
     private final ClienteService clienteService;
+
+    @GetMapping
+    public ResponseEntity<Page<ClienteDTO>> listarClientes(
+            @RequestParam(name = "page") int page,
+            @RequestParam(name = "size") int size,
+            @RequestParam(name = "nome") String nome
+    ){
+        return ResponseEntity.ok(clienteService.findAll(page, size, nome));
+    }
 
     @PostMapping
     public ResponseEntity addCliente(@Valid @RequestBody ClienteDTO clienteDTO) {

@@ -3,6 +3,9 @@ package com.apidev.cliente.dtos;
 import com.apidev.cliente.entity.ClienteEntity;
 import com.apidev.cliente.enums.EnumTipoPessoa;
 import com.apidev.endereco.entity.EnderecoEntity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,10 +18,19 @@ import java.time.LocalDate;
 public class ClienteDTO {
 
     private Long id;
+
+    @NotBlank(message = "Nome é um campo obrigatório")
+    @Size(max = 255, message = "O nome pode ter ATÉ {max} caracteres")
     private String nome;
+
+    @NotBlank(message = "Sobrenome é um campo obrigatório")
+    @Size(max = 255, message = "O sobrenome pode ter ATÉ {size} caracteres")
     private String sobrenome;
+
     private LocalDate dataNascimento;
     private String telefone;
+
+    @NotNull(message = "Tipo de pessoa é um campo obrigatório")
     private EnumTipoPessoa tipoPessoa;
     private String documento;
     private EnderecoEntity endereco;

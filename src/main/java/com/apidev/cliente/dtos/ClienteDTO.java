@@ -32,7 +32,12 @@ public class ClienteDTO {
 
     @NotNull(message = "Tipo de pessoa é um campo obrigatório")
     private EnumTipoPessoa tipoPessoa;
+
+    @NotBlank(message = "Documento é um campo obrigatório")
     private String documento;
+
+
+    @NotNull(message = "Endereço é um obrigatório")
     private EnderecoEntity endereco;
 
     public static ClienteDTO of(ClienteEntity clienteEntity) {

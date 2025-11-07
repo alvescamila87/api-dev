@@ -69,10 +69,6 @@ public class ClienteService {
             throw new ValidationException("Nome é um campo obrigatório.");
         }
 
-        if(clienteDTO.getSobrenome().isBlank()) {
-            throw new ValidationException("Sobrenome é um campo obrigatório.");
-        }
-
         if(clienteDTO.getTipoPessoa().getDescricao().isBlank()) {
             throw new ValidationException("Tipo de pessoa é um campo obrigatório.");
         }

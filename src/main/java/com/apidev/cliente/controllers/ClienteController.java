@@ -1,10 +1,12 @@
 package com.apidev.cliente.controllers;
 
 import com.apidev.cliente.dtos.ClienteDTO;
+import com.apidev.cliente.dtos.ClienteFilterDTO;
 import com.apidev.cliente.services.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,17 @@ public class ClienteController {
     ){
         return ResponseEntity.ok(clienteService.findAll(page, size, nome));
     }
+
+    @GetMapping("/paginacao-com-filtro")
+    public ResponseEntity<Page<ClienteDTO>> listaClientesComFiltro(
+            @RequestParam(name = "page") int page,
+            @RequestParam(name = "size") int size,
+            ClienteFilterDTO filter
+    ){
+        return ResponseEntity.ok(clienteService.findAll(page, size, filter));
+    }
+
+    Pageable pageable)
 
     @PostMapping
     public ResponseEntity addCliente(@Valid @RequestBody ClienteDTO clienteDTO) {

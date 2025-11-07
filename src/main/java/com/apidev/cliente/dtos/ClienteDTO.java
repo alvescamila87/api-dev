@@ -24,10 +24,6 @@ public class ClienteDTO {
     @Size(max = 255, message = "O nome pode ter ATÉ {max} caracteres")
     private String nome;
 
-    @NotBlank(message = "Sobrenome é um campo obrigatório")
-    @Size(max = 255, message = "O sobrenome pode ter ATÉ {size} caracteres")
-    private String sobrenome;
-
     @NotNull(message = "Data de nascimento é um campo obrigatório")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
@@ -48,7 +44,6 @@ public class ClienteDTO {
                 .builder()
                 .id(clienteEntity.getId())
                 .nome(clienteEntity.getNome())
-                .sobrenome(clienteEntity.getSobrenome())
                 .dataNascimento(clienteEntity.getDataNascimento())
                 .telefone(clienteEntity.getTelefone())
                 .tipoPessoa(clienteEntity.getTipoPessoa())

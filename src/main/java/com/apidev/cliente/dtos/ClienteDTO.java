@@ -3,6 +3,7 @@ package com.apidev.cliente.dtos;
 import com.apidev.cliente.entity.ClienteEntity;
 import com.apidev.cliente.enums.EnumTipoPessoa;
 import com.apidev.endereco.entity.EnderecoEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -27,7 +28,10 @@ public class ClienteDTO {
     @Size(max = 255, message = "O sobrenome pode ter ATÉ {size} caracteres")
     private String sobrenome;
 
+    @NotNull(message = "Data de nascimento é um campo obrigatório")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
+
     private String telefone;
 
     @NotNull(message = "Tipo de pessoa é um campo obrigatório")
@@ -35,7 +39,6 @@ public class ClienteDTO {
 
     @NotBlank(message = "Documento é um campo obrigatório")
     private String documento;
-
 
     @NotNull(message = "Endereço é um obrigatório")
     private EnderecoEntity endereco;

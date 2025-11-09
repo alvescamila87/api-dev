@@ -13,6 +13,8 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 
     Page<ClienteEntity> findAllByNomeContainingIgnoreCase(String nome, Pageable pageable);
 
+    Page<ClienteEntity> findAllByDocumento(String documento, Pageable pageable);
+
     Optional<ClienteEntity> findByDocumento(String documento);
 
     boolean existsByDocumento(String documento);

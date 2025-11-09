@@ -1,10 +1,12 @@
 package com.apidev.cliente.services;
 
 import com.apidev.cliente.dtos.ClienteDTO;
+import com.apidev.cliente.dtos.ClienteFilterDTO;
 import com.apidev.cliente.entity.ClienteEntity;
 import com.apidev.cliente.repositories.ClienteRepository;
 import com.apidev.usuario.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,6 +29,26 @@ public class ClienteService {
             listaClientes = clienteRepository.findAllByNomeContainingIgnoreCase(nome, pageRequest);
         } else {
             listaClientes = clienteRepository.findAll(pageRequest);
+        }
+
+        return listaClientes.map(ClienteDTO::of);
+    }
+
+    public Page<ClienteDTO> findAllComFiltro(int page, int size, ClienteFilterDTO filter) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("nome").ascending());
+
+        Page<ClienteEntity> listaClientes;
+
+        if(filter != null) {
+            return clienteRepository.findAll(pageRequest).map(ClienteDTO::of);
+        }
+
+        if(StringUtils.isNotBlank(filter.getNome())) {
+            listaClientes = clienteRepository.findAllByNomeContainingIgnoreCase(filter.getNome(), pageRequest);
+        } else if(StringUtils.isNotBlank(filter.getDocumento())) {
+            listaClientes = clienteRepository.findAllByDocumento(filter.getDocumento(), pageRequest);
+        } else {
+            return clienteRepository.findAll(pageRequest).map(ClienteDTO::of);
         }
 
         return listaClientes.map(ClienteDTO::of);

@@ -1,8 +1,10 @@
 package com.apidev.endereco.dtos;
 
+import com.apidev.endereco.entity.EnderecoEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
@@ -23,4 +25,7 @@ public class EnderecoDTO {
     private String uf;
     private String numero;
 
+    public static EnderecoDTO of(EnderecoEntity enderecoEntity) {
+        return BeanUtils.copyProperties(this, enderecoEntity);
+    }
 }

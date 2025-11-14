@@ -10,5 +10,5 @@ import org.springframework.data.domain.Page;
 @Repository
 public interface EnderecoRepository extends JpaRepository<EnderecoEntity, Long> {
 
-    Page<UsuarioEntity> findAllByCep(String cep, Pageable pageable);
+    Page<EnderecoEntity> findAllByCep(String cep, Pageable pageable);
 }

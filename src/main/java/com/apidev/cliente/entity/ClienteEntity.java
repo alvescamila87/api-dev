@@ -26,9 +26,6 @@ public class ClienteEntity {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "sobrenome", nullable = false)
-    private String sobrenome;
-
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
@@ -55,7 +52,6 @@ public class ClienteEntity {
                 .builder()
                 .id(clienteDTO.getId())
                 .nome(clienteDTO.getNome())
-                .sobrenome(clienteDTO.getSobrenome())
                 .dataNascimento(clienteDTO.getDataNascimento())
                 .telefone(clienteDTO.getTelefone())
                 .tipoPessoa(clienteDTO.getTipoPessoa())

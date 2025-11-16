@@ -4,6 +4,7 @@ import com.apidev.endereco.dtos.EnderecoDTO;
 import com.apidev.endereco.services.EnderecoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,5 +29,6 @@ public class EnderecoController {
     @DeleteMapping("/id")
     public ResponseEntity<Void> delete (Long id) {
         enderecoService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT);
     }
 }

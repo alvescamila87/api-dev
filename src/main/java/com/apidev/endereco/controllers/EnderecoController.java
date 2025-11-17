@@ -29,6 +29,6 @@ public class EnderecoController {
     @DeleteMapping("/id")
     public ResponseEntity<Void> delete (Long id) {
         enderecoService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

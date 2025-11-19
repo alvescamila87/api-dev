@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/cep")
 @RequiredArgsConstructor
@@ -24,6 +21,11 @@ public class EnderecoController {
                     @RequestParam(name = "cep") String cep
      ) {
         return ResponseEntity.ok(enderecoService.findAll(page, size, cep));
+    }
+
+    @PostMapping
+    public ResponseEntity addEndereco(EnderecoDTO enderecoDTO) {
+        return ResponseEntity.ok(enderecoService.addEndereco(enderecoDTO));
     }
 
     @DeleteMapping("/id")

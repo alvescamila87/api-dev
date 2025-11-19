@@ -32,6 +32,14 @@ public class EnderecoService {
         return listaEnderecoEntity.map(EnderecoDTO::of);
     }
 
+    public boolean addEndereco(EnderecoDTO enderecoDTO) {
+        validInput(enderecoDTO);
+
+        enderecoRepository.save(EnderecoEntity.from(enderecoDTO));
+
+        return true;
+    }
+
     public void delete (Long id) {
         findById(id);
         enderecoRepository.deleteById(id);
@@ -41,5 +49,16 @@ public class EnderecoService {
         EnderecoEntity enderecoEntity = enderecoRepository.findById(id).orElseThrow(() -> new ValidationException("Não foi encontrado endereço com esse ID."));
 
         return EnderecoDTO.of(enderecoEntity);
+    }
+
+    protected void validInput(EnderecoDTO enderecoDTO) {
+        if(enderecoDTO == null) {
+            throw new ValidationException("Campos obrigatórios não preenchidos");
+        }
+
+        if(enderecoDTO.getCep().isBlank()) {
+            throw new ValidationException("CEP é obrigatório.");
+        }
+
     }
 }

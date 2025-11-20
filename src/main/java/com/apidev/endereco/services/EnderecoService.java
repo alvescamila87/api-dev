@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +41,16 @@ public class EnderecoService {
         return true;
     }
 
+    public boolean updateEndereco(String cep, EnderecoDTO enderecoDTO) {
+        findByCep(cep);
+
+        validInput(enderecoDTO);
+
+        enderecoRepository.save(EnderecoEntity.from(enderecoDTO));
+
+        return true;
+    }
+
     public void delete (Long id) {
         findById(id);
         enderecoRepository.deleteById(id);
@@ -49,6 +60,16 @@ public class EnderecoService {
         EnderecoEntity enderecoEntity = enderecoRepository.findById(id).orElseThrow(() -> new ValidationException("Não foi encontrado endereço com esse ID."));
 
         return EnderecoDTO.of(enderecoEntity);
+    }
+
+    public EnderecoDTO findByCep(String cep) {
+        Optional<EnderecoEntity> enderecoEntityOptional = enderecoRepository.findByCep(cep);
+
+        if(enderecoEntityOptional.isEmpty()) {
+            throw  new ValidationException("Não foi encontrado nenhum endereço com esse CEP: " + cep);
+        }
+
+        return EnderecoDTO.of(enderecoEntityOptional.get());
     }
 
     protected void validInput(EnderecoDTO enderecoDTO) {

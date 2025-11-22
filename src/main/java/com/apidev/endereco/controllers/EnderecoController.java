@@ -25,12 +25,24 @@ public class EnderecoController {
 
     @PostMapping
     public ResponseEntity addEndereco(EnderecoDTO enderecoDTO) {
-        return ResponseEntity.ok(enderecoService.addEndereco(enderecoDTO));
+        final var result = enderecoService.addEndereco(enderecoDTO);
+
+        if (!result) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{cep}")
     public ResponseEntity updateEndereco(String cep, EnderecoDTO enderecoDTO) {
-        return ResponseEntity.ok(enderecoService.updateEndereco(cep, enderecoDTO));
+        final var result = enderecoService.updateEndereco(cep, enderecoDTO);
+
+        if (!result) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping("/id")

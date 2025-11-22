@@ -28,6 +28,11 @@ public class EnderecoController {
         return ResponseEntity.ok(enderecoService.addEndereco(enderecoDTO));
     }
 
+    @PutMapping("/{cep}")
+    public ResponseEntity updateEndereco(String cep, EnderecoDTO enderecoDTO) {
+        return ResponseEntity.ok(enderecoService.updateEndereco(cep, enderecoDTO));
+    }
+
     @DeleteMapping("/id")
     public ResponseEntity<Void> delete (Long id) {
         enderecoService.delete(id);

@@ -34,6 +34,8 @@ public class EnderecoService {
     }
 
     public boolean addEndereco(EnderecoDTO enderecoDTO) {
+        findByCep(enderecoDTO.getCep());
+
         validInput(enderecoDTO);
 
         enderecoRepository.save(EnderecoEntity.from(enderecoDTO));

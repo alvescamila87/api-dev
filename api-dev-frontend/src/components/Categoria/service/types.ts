@@ -12,3 +12,7 @@ export type CategoriaPageableResponse = {
   pageNumber: number;
   pageSize: number;
 };
+
+export type CategoriaFilter = {
+  nome: string | null;
+};

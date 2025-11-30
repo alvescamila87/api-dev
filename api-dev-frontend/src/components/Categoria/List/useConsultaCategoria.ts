@@ -1,11 +1,9 @@
 import { useCategoriaService } from "../service/useCategoriaService";
-import {useEffect, useState} from "react";
-import {useQuery} from "@tanstack/react-query";
-import type {UsuarioPageableResponse} from "../../Usuario/service/types.ts";
-import type {CategoriaPageableResponse} from "../service/types.ts";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import type { CategoriaPageableResponse } from "../service/types.ts";
 
 export const useConsultaCategoria = () => {
-
   const { findAll } = useCategoriaService();
 
   const [filters, setFilters] = useState<string>("");
@@ -18,7 +16,7 @@ export const useConsultaCategoria = () => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const [modalMode, setModalMode] = useState<"create" | "edit" | "view">(
-      "create"
+    "create"
   );
 
   const [selectId, setSelectId] = useState<number | null>(null);

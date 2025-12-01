@@ -8,6 +8,7 @@ import {
   InputLabel,
   MenuItem,
   Pagination,
+  Paper,
   Select,
   Table,
   TableBody,
@@ -21,7 +22,31 @@ import {
 import { useConsultaCategoria } from "./useConsultaCategoria";
 
 export const ConsultaCategoria = () => {
-  const { categorias, isFetching } = useConsultaCategoria();
+  const {
+    categorias,
+    isFetching,
+    totalPages,
+    pageNumber,
+    handlePageNumberChange,
+    pageSize,
+    handlePageSizeChange,
+    filters,
+    handleFiltersChange,
+
+    modalMode,
+
+    openModal,
+    handleControlModal,
+
+    selectId,
+    handleOpenViewModal,
+
+    handleOpenEditModal,
+
+    openDeleteDialog,
+    handleOpenDeleteDialog,
+    handleCloseDeleteDialog,
+  } = useConsultaCategoria();
   return (
     <>
       <Box sx={{ p: 4 }}>

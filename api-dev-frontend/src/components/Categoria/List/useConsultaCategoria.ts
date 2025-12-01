@@ -1,12 +1,15 @@
-import { useCategoriaService } from "../service/useCategoriaService";
-import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { CategoriaPageableResponse } from "../service/types.ts";
+import { useEffect, useState } from "react";
+import type {
+  CategoriaFilter,
+  CategoriaPageableResponse,
+} from "../service/types.ts";
+import { useCategoriaService } from "../service/useCategoriaService";
 
 export const useConsultaCategoria = () => {
   const { findAll } = useCategoriaService();
 
-  const [filters, setFilters] = useState<string>("");
+  const [filters, setFilters] = useState<CategoriaFilter | null>(null);
   const [debouncedFilters, setDebouncedFilters] = useState<string>("");
 
   const [pageNumber, setPageNumber] = useState(0);
@@ -37,7 +40,7 @@ export const useConsultaCategoria = () => {
         pageSize,
         debouncedFilters,
       });
-      return await findAll(pageNumber, pageSize, debouncedFilters);
+      return await findAll(pageNumber, pageSize, filters);
     },
     queryKey: ["categoria-data", pageNumber, pageSize, debouncedFilters],
     retry: 2,

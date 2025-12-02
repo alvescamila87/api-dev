@@ -1,20 +1,22 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import * as Yup from "yup";
+import * as yup from "yup";
 import { ENUM_TIPO_PERMISSAO, type TipoPermissao } from "../../service/types";
 import { useUsuario } from "../List/useUsuario";
 
-const schema = Yup.object().shape({
-  nome: Yup.string().required("Campo obrigatório"),
+const schema = yup.object().shape({
+  nome: yup.string().required("Campo obrigatório"),
   //permissao: Yup.mixed<TipoPermissao>().required("Campo obrigatório"),
-  permissao: Yup.string()
+  permissao: yup
+    .string()
     .oneOf(ENUM_TIPO_PERMISSAO)
     .required("Campo obrigatório"),
-  email: Yup.string().required("Campo obrigatório"),
-  senha: Yup.string()
+  email: yup.string().required("Campo obrigatório"),
+  senha: yup
+    .string()
     .min(6, "A senha precisa ter pelo menos 6 caracteres.")
     .required("Campo obrigatório"),
-  ativo: Yup.bool().nullable(),
+  ativo: yup.bool().nullable(),
 });
 
 export function UsuarioForm() {

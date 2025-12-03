@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { type UsuarioPageableResponse } from "../../service/types";
-import { useUsuarioServiceTanStack } from "../../service/useUsuarioServiceTanStack";
+import { type UsuarioPageableResponse } from "../../../service/types";
+import { useUsuarioServiceTanStack } from "../../../service/useUsuarioServiceTanStack";
 
 export const useUsuarioTanStack = () => {
   const { findAll, deleteUsuario } = useUsuarioServiceTanStack();

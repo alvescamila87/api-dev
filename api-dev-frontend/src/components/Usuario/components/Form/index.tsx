@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { ENUM_TIPO_PERMISSAO, type TipoPermissao } from "../../service/types";
-import { useUsuario } from "../List/useUsuario";
+import { useUsuario } from "../List/ListDefault/useUsuario";
 
 const schema = yup.object().shape({
   nome: yup.string().required("Campo obrigatório"),

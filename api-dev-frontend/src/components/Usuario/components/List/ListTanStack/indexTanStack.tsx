@@ -22,8 +22,8 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { ConfirmDeleteDialog } from "../ConfirmeDeleteDialog";
-import { CreateModal } from "../Modal";
+import { ConfirmDeleteDialog } from "../../ConfirmeDeleteDialog";
+import { CreateModal } from "../../Modal";
 import { useUsuarioTanStack } from "./useUsuarioTanStack";
 // import { CreateModal } from "../Modal";
 

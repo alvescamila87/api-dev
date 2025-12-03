@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import type { UsuarioResponseList } from "../../service/types";
-import { useUsuarioService } from "../../service/useUsuarioService";
+import type { UsuarioResponseList } from "../../../service/types";
+import { useUsuarioService } from "../../../service/useUsuarioService";
 
 export const useUsuario = () => {
   const [filters, setFilters] = useState<string>("");
   const [pageNumber, setPageNumber] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
-
-  useUsuarioService();
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<UsuarioResponseList | null>(null);

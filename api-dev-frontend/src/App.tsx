@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ListaCategoria } from "./components/Categoria";
 import { LayoutContainer } from "./components/layout-container/LayoutContainer";
 import { ListaProduto } from "./components/Produto";
-import ListaUsuarioTanStack from "./components/Usuario/components/List/indexTanStack";
+import ListaUsuarioTanStack from "./components/Usuario/components/List/ListTanStack/indexTanStack";
 import { Home } from "./pages/Home/Home";
 
 const queryClient = new QueryClient();

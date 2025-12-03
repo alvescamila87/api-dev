@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useConsultaCategoria } from "../List/useConsultaCategoria";
 
 const schema = yupResolver.object().shape({
   nome: yup.string().required("Campo obrigatório"),
@@ -18,7 +19,7 @@ export function CategoriaForm() {
 
   const { errors, isSubmitting } = formState;
 
-  const { data, isLoading } = useCategoria();
+  const { data, isLoading } = useConsultaCategoria();
 
   console.log("Errors: ", errors);
   console.log("isSubmitting: ", isSubmitting);

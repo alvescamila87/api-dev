@@ -1,4 +1,7 @@
 import { AddIcCallOutlined } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Box,
   Button,
@@ -167,6 +170,21 @@ export const ConsultaCategoria = () => {
           />
         </Box>
       </Box>
+
+      {openModal && (
+        <CreateModal
+          onClose={handleControlModal}
+          idSelected={selectId!}
+          mode={modalMode}
+        />
+      )}
+
+      {openDeleteDialog && (
+        <ConfirmDeleteDialog
+          onClose={handleCloseDeleteDialog}
+          onConfirm={handleConfirmDelete}
+        />
+      )}
     </>
   );
 };

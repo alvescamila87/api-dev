@@ -5,7 +5,7 @@ import { useConsultaCategoria } from "../List/useConsultaCategoria";
 
 const schema = yupResolver.object().shape({
   nome: yup.string().required("Campo obrigatório"),
-  descricap: yup.string().nullable()
+  descricao: yup.string().nullable()
 });
 
 export function CategoriaForm() {
@@ -44,6 +44,7 @@ export function CategoriaForm() {
         autoFocus
         placeholder="Categoria"
         {...register("nome")}
+        required
       />
       {errors.nome && <p>{errors.nome.message}</p>}
 
@@ -54,7 +55,7 @@ export function CategoriaForm() {
             placeholder="Descrição"
             {...register("descricao")}
         />
-        {errors.nome && <p>{errors.nome.message}</p>}
+        {errors.descricao && <p>{errors.descricao.message}</p>}
 
       <div className="form-group">
         <button type="submit" disabled={isSubmitting}>

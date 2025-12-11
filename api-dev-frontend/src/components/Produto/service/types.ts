@@ -5,3 +5,11 @@ export type ProdutoResponse = {
 }
 
 export type ProdutoList = ProdutoResponse[];
+
+export type ProdutoPageableResponse = {
+    content: ProdutoList;
+    totalPages: number;
+    pageNumber: number;
+    pageSize: number;
+
+}

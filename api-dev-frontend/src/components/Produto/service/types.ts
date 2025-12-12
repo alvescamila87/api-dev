@@ -11,5 +11,8 @@ export type ProdutoPageableResponse = {
     totalPages: number;
     pageNumber: number;
     pageSize: number;
+}
 
+export type ProdutoFilter = {
+    nome: string | null;
 }

@@ -1,10 +1,10 @@
-import {useCategoriaService} from "../../Categoria/service/useCategoriaService.ts";
 import {useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {useProdutoService} from "../service/useProdutoService.ts";
+import type {ProdutoFilter, ProdutoPageableResponse} from "../service/types.ts";
 
 export const useConsultaProduto = () => => {
-    const { findAll } = useProdutoService();
+    const { findlAll } = useProdutoService();
 
     const [filters, setFilters] = useState<ProdutoFilter | null>(null);
     const [debouncedFilters, setDebouncedFilters] = useState<string>("");

@@ -17,6 +17,7 @@ const pages = [
   { name: "Usuários", path: "/usuarios" },
   { name: "Categorias", path: "/categorias" },
   { name: "Produtos", path: "/produtos" },
+  { name: "Clientes", path: "/clientes" },
 ];
 
 export function NavBar() {

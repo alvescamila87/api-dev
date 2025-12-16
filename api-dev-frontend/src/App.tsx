@@ -7,6 +7,7 @@ import { LayoutContainer } from "./components/layout-container/LayoutContainer";
 import { ListaProduto } from "./components/Produto";
 import ListaUsuarioTanStack from "./components/Usuario/components/List/ListTanStack/indexTanStack";
 import { Home } from "./pages/Home/Home";
+import {ListaCliente} from from "./components/ListaCliente";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ export function App() {
             <Route path="/usuarios" element={<ListaUsuarioTanStack />} />
             <Route path="/categorias" element={<ListaCategoria />} />
             <Route path="/produtos" element={<ListaProduto />} />
+            <Route path="/clientes" element={<ListaCliente />} />
           </Routes>
           <ToastContainer
             position="top-right"

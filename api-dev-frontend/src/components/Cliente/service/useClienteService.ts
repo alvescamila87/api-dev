@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ClienteFilters } from "./types";
+import type { ClienteFilters, ClientePageableResponse } from "./types";
 
 export const useClienteoService = () => {
   const API_URL = "/clientes";
@@ -9,7 +9,7 @@ export const useClienteoService = () => {
     pageSize: number,
     filters: ClienteFilters
   ) {
-    const response = await axios.get(`${API_URL}`, {
+    const response = await axios.get<ClientePageableResponse>(`${API_URL}`, {
       params: {
         pageNumber,
         pageSize,

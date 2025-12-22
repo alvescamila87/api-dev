@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import type { ClienteFilters, ClientePageableResponse } from "../service/types";
+import { useClienteoService } from "../service/useClienteService";
 
 export const useConsultaCliente = () => {
   const { findlAll } = useClienteoService();
 
-  const [filters, setFilters] = useState<ClienteFilter | null>(null);
+  const [filters, setFilters] = useState<ClienteFilters | null>(null);
   const [debouncedFilters, setDebouncedFilters] = useState<string>("");
 
   const [pageNumber, setPageNumber] = useState(0);
@@ -35,7 +37,7 @@ export const useConsultaCliente = () => {
         pageSize,
         debouncedFilters,
       });
-      return await findAll(pageNumber, pageSize, filters);
+      return await findlAll(pageNumber, pageSize, filters);
     },
     queryKey: ["produto-data", pageNumber, pageSize, debouncedFilters],
     retry: 2,
@@ -86,7 +88,7 @@ export const useConsultaCliente = () => {
 
   return {
     ...query,
-    cleintes: query?.data?.content ?? [],
+    clientes: query?.data?.content ?? [],
     totalPages: query?.data?.totalPages ?? 0,
 
     pageNumber,

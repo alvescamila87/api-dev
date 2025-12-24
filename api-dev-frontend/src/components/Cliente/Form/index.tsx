@@ -1,9 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useConsultaCliente } from "../List/useConsultaCliente";
 
-const schema = yupResolver.object().shape({
+const schema = yup.object().shape({
   nome: yup.string().required("Campo obrigatório"),
+  dataNascimento: yup.string().required("Campo obrigatório"),
 });
 
 export function ClienteForm() {
@@ -13,6 +15,7 @@ export function ClienteForm() {
     reValidateMode: "onChange",
     defaultValues: {
       nome: "",
+      dataNascimento: "",
     },
   });
 
@@ -46,14 +49,14 @@ export function ClienteForm() {
       />
       {errors.nome && <p>{errors.nome.message}</p>}
 
-      <label>Descrição</label>
+      <label>Data nascimento</label>
       <input
         type="text"
         autoFocus
-        placeholder="Descrição"
-        {...register("descricao")}
+        placeholder="Data nascimento"
+        {...register("dataNascimento")}
       />
-      {errors.descricao && <p>{errors.descricao.message}</p>}
+      {errors.dataNascimento && <p>{errors.dataNascimento.message}</p>}
 
       <div className="form-group">
         <button type="submit" disabled={isSubmitting}>

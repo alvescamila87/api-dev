@@ -6,6 +6,7 @@ import { useConsultaCliente } from "../List/useConsultaCliente";
 const schema = yup.object().shape({
   nome: yup.string().required("Campo obrigatório"),
   dataNascimento: yup.string().required("Campo obrigatório"),
+  tipoPessoa: yup.strong().required("Campo obrigatório"),
 });
 
 export function ClienteForm() {
@@ -16,6 +17,7 @@ export function ClienteForm() {
     defaultValues: {
       nome: "",
       dataNascimento: "",
+      tipoPessoa: "FISICA",
     },
   });
 

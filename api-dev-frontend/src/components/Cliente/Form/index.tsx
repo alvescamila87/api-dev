@@ -6,7 +6,8 @@ import { useConsultaCliente } from "../List/useConsultaCliente";
 const schema = yup.object().shape({
   nome: yup.string().required("Campo obrigatório"),
   dataNascimento: yup.string().required("Campo obrigatório"),
-  tipoPessoa: yup.strong().required("Campo obrigatório"),
+  tipoPessoa: yup.string().required("Campo obrigatório"),
+  documento: yup.string().required("Campo obrigatório")
 });
 
 export function ClienteForm() {
@@ -18,6 +19,7 @@ export function ClienteForm() {
       nome: "",
       dataNascimento: "",
       tipoPessoa: "FISICA",
+      documento: "",
     },
   });
 

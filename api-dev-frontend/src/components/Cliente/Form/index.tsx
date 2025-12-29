@@ -8,6 +8,7 @@ const schema = yup.object().shape({
   dataNascimento: yup.string().required("Campo obrigatório"),
   tipoPessoa: yup.string().required("Campo obrigatório"),
   documento: yup.string().required("Campo obrigatório")
+  cep: yup.string().required("Campo obrigatório")
 });
 
 export function ClienteForm() {
@@ -20,6 +21,7 @@ export function ClienteForm() {
       dataNascimento: "",
       tipoPessoa: "FISICA",
       documento: "",
+      cep: "",
     },
   });
 

@@ -9,7 +9,8 @@ const schema = yup.object().shape({
   tipoPessoa: yup.string().required("Campo obrigatório"),
   documento: yup.string().required("Campo obrigatório")
   cep: yup.string().required("Campo obrigatório"),
-  logradouro: yup.stribg.required("Campo obrigatório")
+  logradouro: yup.string().required("Campo obrigatório")
+
 });
 
 export function ClienteForm() {
@@ -24,6 +25,11 @@ export function ClienteForm() {
       documento: "",
       cep: "",
       logradouro: "",
+      numero: "",
+      complemento: "",
+      bairro: "",
+      municipio: ""
+      uf: ""
     },
   });
 
